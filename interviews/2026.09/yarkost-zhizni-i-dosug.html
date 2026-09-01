@@ -1,0 +1,514 @@
+<title>Карта яркости — сентябрь</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#EEF0F6;
+    --surface:#FFFFFF;
+    --surface-2:#E2E6F0;
+    --ink:#1B2130;
+    --ink-soft:#4B5470;
+    --ink-faint:#7A85A3;
+    --accent:#C97A1E;
+    --accent-ink:#8A5312;
+    --accent-soft:#F4E0C2;
+    --route:#3B5BA0;
+    --support:#2E7D53;
+    --support-soft:#DCEFE3;
+    --growth:#6E42B8;
+    --growth-soft:#EAE0F9;
+    --border:#D3D8E4;
+    --shadow: 0 1px 2px rgba(27,33,48,.04), 0 8px 24px -12px rgba(27,33,48,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10142A;
+      --surface:#1A2140;
+      --surface-2:#222B52;
+      --ink:#ECEFF9;
+      --ink-soft:#AEB6D6;
+      --ink-faint:#7F88AC;
+      --accent:#EFA84C;
+      --accent-ink:#FFD8A0;
+      --accent-soft:#3B2C15;
+      --route:#8AA6EA;
+      --support:#6FCE9E;
+      --support-soft:#1B3A2C;
+      --growth:#C1A3F2;
+      --growth-soft:#332450;
+      --border:#313A64;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10142A;
+    --surface:#1A2140;
+    --surface-2:#222B52;
+    --ink:#ECEFF9;
+    --ink-soft:#AEB6D6;
+    --ink-faint:#7F88AC;
+    --accent:#EFA84C;
+    --accent-ink:#FFD8A0;
+    --accent-soft:#3B2C15;
+    --route:#8AA6EA;
+    --support:#6FCE9E;
+    --support-soft:#1B3A2C;
+    --growth:#C1A3F2;
+    --growth-soft:#332450;
+    --border:#313A64;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Public Sans', system-ui, -apple-system, sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,.eyebrow,.stat-num{ font-family:'Bricolage Grotesque', system-ui, sans-serif; text-wrap:balance; }
+  code, .mono, .figure{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  a{ color:var(--route); }
+
+  .wrap{ max-width:1040px; margin:0 auto; padding: 56px 24px 96px; }
+
+  /* Header */
+  header.hero{
+    display:flex; flex-direction:column; gap:10px;
+    padding-bottom:36px; margin-bottom:40px;
+    border-bottom:1px solid var(--border);
+  }
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--accent-ink); font-weight:600;
+  }
+  .kicker::before{ content:"✦"; color:var(--accent); }
+  header.hero h1{
+    font-size: clamp(30px, 4.4vw, 44px);
+    font-weight:800; margin:2px 0 4px; letter-spacing:-.01em;
+  }
+  header.hero .sub{ color:var(--ink-soft); font-size:16px; max-width:640px; }
+  .meta-row{ display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; }
+  .meta-chip{
+    display:flex; align-items:center; gap:7px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:999px; padding:6px 14px; font-size:13px; color:var(--ink-soft);
+    box-shadow:var(--shadow);
+  }
+  .meta-chip b{ color:var(--ink); font-weight:600; }
+
+  /* Route rail sections */
+  .route{ position:relative; }
+  section.stop{
+    position:relative;
+    padding-left:40px;
+    margin-bottom:52px;
+  }
+  section.stop::before{
+    content:"";
+    position:absolute; left:9px; top:6px; bottom:-52px;
+    width:2px; background:var(--border);
+  }
+  section.stop:last-child::before{ display:none; }
+  section.stop .dot{
+    position:absolute; left:0; top:2px;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--route);
+    display:flex; align-items:center; justify-content:center;
+    font-size:10.5px; font-weight:700; color:var(--route);
+    font-family:'JetBrains Mono', monospace;
+  }
+  .stop-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+  .stop-head h2{ font-size:23px; font-weight:700; margin:0; }
+  .stop-note{ color:var(--ink-faint); font-size:14px; margin:0 0 20px; }
+
+  /* Diagnosis list */
+  .diag-list{ display:flex; flex-direction:column; gap:12px; }
+  .diag-item{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:14px 16px; box-shadow:var(--shadow);
+  }
+  .diag-num{
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:13px;
+    color:var(--accent-ink); background:var(--accent-soft);
+    border-radius:7px; padding:3px 8px; flex:none; margin-top:2px;
+  }
+  .diag-item p{ margin:0; font-size:15px; }
+
+  /* Cards grid */
+  .grid{ display:grid; grid-template-columns:1fr; gap:18px; }
+  @media(min-width:760px){ .grid.cols-2{ grid-template-columns:1fr 1fr; } }
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:20px 22px; box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .card h3{ font-size:17px; margin:0; font-weight:700; }
+  .tag{
+    font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    border-radius:999px; padding:4px 10px; flex:none; white-space:nowrap;
+  }
+  .tag.support{ background:var(--support-soft); color:var(--support); }
+  .tag.growth{ background:var(--growth-soft); color:var(--growth); }
+  .tag.prio-high{ background:var(--accent-soft); color:var(--accent-ink); }
+  .tag.prio-med{ background:var(--surface-2); color:var(--ink-soft); }
+
+  .card .field-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink-faint); font-weight:600; margin:8px 0 2px;
+  }
+  .card p{ margin:0; font-size:14.5px; color:var(--ink); }
+  .card p.soft{ color:var(--ink-soft); }
+  .res-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:2px; }
+  .res-chip{
+    font-size:12.5px; background:var(--surface-2); border:1px solid var(--border);
+    border-radius:8px; padding:5px 9px; color:var(--ink-soft);
+  }
+  .res-chip b{ color:var(--ink); }
+
+  /* Classification */
+  .class-row{ display:flex; gap:18px; flex-wrap:wrap; }
+  .class-box{
+    flex:1 1 260px; border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; background:var(--surface); box-shadow:var(--shadow);
+  }
+  .class-box h4{ margin:0 0 8px; font-size:14px; text-transform:uppercase; letter-spacing:.05em; }
+  .class-box.support h4{ color:var(--support); }
+  .class-box.growth h4{ color:var(--growth); }
+  .class-box ul{ margin:0; padding-left:18px; font-size:14.5px; color:var(--ink-soft); }
+  .class-box li{ margin-bottom:4px; }
+
+  /* Roadmap */
+  .waves{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:760px){ .waves{ grid-template-columns:repeat(3,1fr); } }
+  .wave{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; box-shadow:var(--shadow);
+  }
+  .wave .wave-eyebrow{ font-size:11.5px; color:var(--route); font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  .wave h4{ margin:4px 0 10px; font-size:16px; }
+  .wave ul{ margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft); }
+  .wave li{ margin-bottom:6px; }
+
+  /* First step */
+  .first-step{
+    background:linear-gradient(160deg, var(--accent-soft), var(--surface) 65%);
+    border:1px solid var(--border); border-radius:16px; padding:24px 26px;
+    box-shadow:var(--shadow);
+  }
+  .first-step h3{ margin:0 0 8px; font-size:18px; }
+  .first-step p{ margin:0 0 14px; font-size:15px; color:var(--ink-soft); }
+  .prompt-box{
+    background:var(--surface); border:1px dashed var(--border); border-radius:10px;
+    padding:14px 16px; font-family:'JetBrains Mono', monospace; font-size:13px;
+    color:var(--ink); white-space:pre-wrap; line-height:1.6;
+  }
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--border);
+    color:var(--ink-faint); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    section.stop{ animation: rise .5s ease both; }
+    section.stop:nth-of-type(2){ animation-delay:.05s; }
+    section.stop:nth-of-type(3){ animation-delay:.1s; }
+    section.stop:nth-of-type(4){ animation-delay:.15s; }
+    section.stop:nth-of-type(5){ animation-delay:.2s; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">Сфера · Яркость жизни и досуг</span>
+    <h1>Карта яркости на триместр</h1>
+    <p class="sub">Диагноз, цели и AI-агенты по итогам интервью — маршрут от текущей рутины к
+      регулярной, спланированной яркости жизни.</p>
+    <div class="meta-row">
+      <span class="meta-chip">🗓 <b>Интервью:</b>&nbsp;2026.09</span>
+      <span class="meta-chip">📍 <b>Горизонт:</b>&nbsp;сентябрь–декабрь 2026</span>
+      <span class="meta-chip">✈️ <b>Ключевые даты:</b>&nbsp;26–27.09 (клуб, Москва) · 28.09–11.10 (отпуск)</span>
+    </div>
+  </header>
+
+  <div class="route">
+
+    <section class="stop">
+      <span class="dot">1</span>
+      <div class="stop-head"><h2>🔍 Диагноз</h2></div>
+      <p class="stop-note">Точки, где реально теряются время, энергия и впечатления.</p>
+      <div class="diag-list">
+        <div class="diag-item">
+          <span class="diag-num">01</span>
+          <p>Всего <b>2 полных свободных дня в неделю</b> — и 2–3 из них в месяц уходят
+          в игру «Цивилизация» без остатка: без общения, новых мест, впечатлений или
+          развития. Это до трети всего личного времени, которое могло бы быть ярким.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">02</span>
+          <p>Яркость жизни <b>приватизирована одним человеком</b> — без девушки
+          самостоятельных вылазок не происходит вообще: «одному не то», а собственного
+          круга общения для впечатлений почти нет (один друг, ~2 совместные вылазки в год).</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">03</span>
+          <p>Операционное трение превращается в <b>полный отказ, а не в альтернативу</b> —
+          дефицит бензина стал причиной отменить недельную поездку с другом в Тверь,
+          вместо перехода на поезд, электричку или другой формат.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">04</span>
+          <p>Нет готового источника идей — <b>каждая вылазка готовится с нуля</b>: поиск
+          мест и продумывание почасовой логистики, чтобы успеть в несколько точек за один
+          выезд. Это и есть тормоз регулярности.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">05</span>
+          <p>Два ближайших ключевых события — <b>отпуск 28.09–11.10 и встреча клуба
+          26–27.09 в Москве</b> — пока без плана, подход «решим по ходу дела». При этом
+          бюджет (5–10 тыс ₽/день на вылазку) реальным ограничением не является.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">2</span>
+      <div class="stop-head"><h2>🤖 Цели триместра</h2></div>
+      <p class="stop-note">Одна поддерживающая цель держит базовый уровень яркости, вторая — экзамен на рост.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="card-top">
+            <h3>Цель #1 · Регулярные вылазки в новые места</h3>
+            <span class="tag support">Поддерживающая</span>
+          </div>
+          <p><b>Цель:</b> минимум 2 самостоятельные или дружеские вылазки в месяц (город
+          или область) до конца года, замещающие минимум половину нынешних «игровых»
+          выходных.</p>
+          <p class="field-label">Ожидаемый результат</p>
+          <p class="soft">Выходные перестают быть по умолчанию «Цивилизацией» — появляется
+          привычный ритуал выбора и выхода в новое место, без затрат энергии на
+          «уговаривание себя».</p>
+          <p class="field-label">Способ достижения</p>
+          <p class="soft">Еженедельный ритуал: в четверг-пятницу вечером — готовые 2–3
+          варианта вылазки на выбор (см. Агент «День-гид»); в выходные — воплощение хотя
+          бы одного; в воскресенье вечером — короткая фиксация факта (см. Агент
+          «Чек-ин яркости»). Раз в месяц — сверка счёта «яркие / рутинные выходные».</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Атомные привычки», Джеймс Клир</b> — логика замены привычки через понятный триггер и маленький первый шаг</span>
+            <span class="res-chip">🔗 Яндекс Карты / 2ГИС — проверка логистики и времени в пути</span>
+          </div>
+          <p class="field-label">Приоритет / эффект</p>
+          <p class="mono soft">Высокий · выходные начинают приносить впечатления, а не чувство потери времени</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Цель #2 · Насыщенный отпуск и выход в новый круг</h3>
+            <span class="tag growth">Рост · экзамен</span>
+          </div>
+          <p><b>Цель:</b> провести содержательный отпуск 28.09–11.10 (с девушкой, если
+          успеет вернуться) и посетить встречу клуба «Незаменимых» 26–27.09 в Москве — с
+          заранее подготовленной программой, а не подходом «решим на месте».</p>
+          <p class="field-label">Ожидаемый результат</p>
+          <p class="soft">Впервые за долгое время — многодневный опыт, спланированный
+          заранее, плюс живое знакомство с новыми людьми из клуба вместо привычной
+          изоляции вдвоём с рутиной.</p>
+          <p class="field-label">Способ достижения</p>
+          <p class="soft">К 14.09 — черновой план отпуска на 3–5 вариантов активностей по
+          дням (гибкий, под 2 сценария — с девушкой и без). К 20.09 — отдельный
+          логистический план поездки в Москву (дорога, тайминг, что успеть рядом). После
+          возвращения — короткий разбор: что сработало, что взять в привычку.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">🔗 Т-Ж (Тинькофф Журнал), раздел «Путешествия» — вдохновение по форматам поездок</span>
+            <span class="res-chip">📚 уточни у пользователя (профильных источников по совместному тревел-планированию не хватает для уверенной рекомендации)</span>
+          </div>
+          <p class="field-label">Приоритет / эффект</p>
+          <p class="mono soft">Высокий · жёсткий дедлайн (26.09–11.10) · открывает шаблон для будущих поездок, включая Японию весной</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">3</span>
+      <div class="stop-head"><h2>🗺️ Карта агентов</h2></div>
+      <p class="stop-note">Каждый агент закрывает конкретную боль, названную в интервью.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #1 · День-гид</h3>
+            <span class="tag prio-high">Приоритет: высокий</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">«Нужно предварительно подготовиться и поискать интересные места,
+          а если места рядом — сразу продумать логистику, чтобы успеть за один выезд в
+          несколько мест».</p>
+          <p class="field-label">Что делает</p>
+          <p>По запросу вечером в четверг или пятницу собирает 2–3 готовых плана на
+          выходной день: куда пойти, что не пропустить, в каком порядке — под конкретный
+          бюджет (5–10 тыс ₽) и локацию (Подмосковье, Москва или выезд за пределы).</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «личный гид-путеводитель». Вход: свободное время, точка
+          старта, бюджет, интерес дня (природа / город / еда / новые люди). Шаги: 1) 2–3
+          варианта тематики на выбор; 2) для выбранной — 4–6 точек с примерным временем и
+          логичным порядком посещения; 3) короткое «что не пропустить» по каждой точке;
+          4) запасной вариант на случай непогоды.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">🔗 Яндекс Карты / 2ГИС — проверка времени в пути между точками</span>
+            <span class="res-chip">🔗 Т-Ж «Путешествия» — банк идей по местам и форматам</span>
+            <span class="res-chip">📹 уточни у пользователя (каналов про однодневные маршруты по Подмосковью не назову с уверенностью)</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Подготовка к вылазке падает с «вечер на планирование» до «5 минут на выбор варианта»</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #2 · Тревел-планировщик поездок</h3>
+            <span class="tag prio-med">Приоритет: средний</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">Отпуск 28.09–11.10 и поездка на клуб в Москву пока без плана —
+          «решим по ходу дела».</p>
+          <p class="field-label">Что делает</p>
+          <p>Строит черновой план по дням — блоками «утро / день / вечер» без жёсткой
+          привязки к часам, с двумя сценариями (девушка успевает вернуться / нет), плюс
+          отдельно логистику дня встречи клуба (дорога Подмосковье–Москва, тайминг,
+          что успеть рядом).</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «тревел-планировщик с гибкими сценариями». Вход: даты,
+          состав участников, бюджет, обязательные пункты (например встреча клуба). Шаги:
+          1) каркас на каждый день без жёсткой почасовки; 2) два сценария под разную
+          готовность спутницы; 3) чек-лист «что забронировать заранее»; 4) отдельный блок
+          логистики под 26–27.09.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">🔗 Яндекс Расписания — транспорт Подмосковье ↔ Москва</span>
+            <span class="res-chip">📚 уточни у пользователя (нет уверенного профильного источника по планированию поездки вдвоём с гибкими сценариями)</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">К 14.09 — готовый черновик вместо пустоты; решения на месте становятся выбором из готового, а не изобретением с нуля</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #3 · Еженедельный чек-ин яркости</h3>
+            <span class="tag prio-high">Приоритет: высокий</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">«По итогу ощущение, что выходной день прошёл мимо, зря» —
+          признание, что для отказа от игры нужна «сила воли», но внешней структуры для
+          этого нет.</p>
+          <p class="field-label">Что делает</p>
+          <p>В пятницу вечером спрашивает про планы на выходные и, если плана нет,
+          предлагает конкретный вариант из «Дня-гида». В воскресенье вечером — короткий
+          вопрос «что по факту было». Ведёт простую еженедельную запись «яркий /
+          рутинный выходной» и раз в месяц показывает сводку.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «аккаунтабилити-партнёр без осуждения». Шаги: 1) в
+          пятницу — вопрос о планах + один конкретный вариант при их отсутствии; 2) в
+          воскресенье — короткий разбор факта; 3) запись в простую таблицу; 4) раз в
+          месяц — сводка «сколько выходных было яркими» без оценочных суждений.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Атомные привычки», Джеймс Клир</b> — триггеры и снижение барьера к действию</span>
+            <span class="res-chip">📚 <b>«Джедайские техники», Максим Дорофеев</b> — почему «сила воли» не работает как единственный механизм</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Появляется видимый счёт вместо смутного чувства вины — легче замечать прогресс и держать регулярность</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">4</span>
+      <div class="stop-head"><h2>Классификация целей</h2></div>
+      <div class="class-row">
+        <div class="class-box support">
+          <h4>Поддерживающие</h4>
+          <ul>
+            <li>Цель #1 — Регулярные вылазки в новые места (держит базовый уровень
+            яркости в еженедельном ритме).</li>
+          </ul>
+        </div>
+        <div class="class-box growth">
+          <h4>Рост / экзамен</h4>
+          <ul>
+            <li>Цель #2 — Насыщенный отпуск + выход в новый круг общения (шаг за пределы
+            привычного «сидим дома / решаем на месте», задел на будущее — включая
+            поездку в Японию весной).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">5</span>
+      <div class="stop-head"><h2>Roadmap</h2></div>
+      <div class="waves">
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 1 · 1–2 недели</span>
+          <h4>Быстрые победы</h4>
+          <ul>
+            <li>Запустить Агент #3 (еженедельный чек-ин) с этих выходных.</li>
+            <li>Первый прогон Агента #1 (День-гид) на ближайший свободный выходной.</li>
+          </ul>
+        </div>
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 2 · 3–8 недель</span>
+          <h4>Основа</h4>
+          <ul>
+            <li>Агент #1 работает регулярно — Цель #1 в процессе, счёт «ярких выходных» растёт.</li>
+            <li>К 14.09 — черновой план отпуска через Агент #2.</li>
+            <li>К 20.09 — логистика поездки в Москву на клуб.</li>
+          </ul>
+        </div>
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 3 · до 4 месяцев</span>
+          <h4>Масштаб</h4>
+          <ul>
+            <li>26–27.09 — встреча клуба, 28.09–11.10 — отпуск: реализация Цели #2.</li>
+            <li>Ноябрь–декабрь — сверка Цели #1 по месячным итогам, корректировка ритма.</li>
+            <li>Задел на весну — предварительное бюджетирование поездки в Японию.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="first-step">
+    <h3>⚡ Первый шаг сегодня</h3>
+    <p>Открой чат с ассистентом и запусти первую версию «Дня-гида» под ближайший
+    свободный выходной. Результат — 2–3 готовых плана — будет виден за 1–2 часа.</p>
+    <div class="prompt-box">Ты — мой личный гид-путеводитель.
+Я живу в Подмосковье, свободен в субботу с 10:00 до 20:00, бюджет — 7000 ₽.
+Хочу [город / природа / что-то новое — выбери сам, если не знаю].
+
+Дай 2-3 варианта вылазки на выбор. Для каждой:
+- 4-6 точек с примерным временем и логичным порядком посещения
+- что конкретно не пропустить в каждой точке
+- ориентир по бюджету
+- запасной вариант на случай дождя
+
+В конце — один явный вопрос: какой вариант выбираю и во сколько выезжаю.</div>
+  </div>
+
+  <footer>
+    <span>Интервью по сфере «Яркость жизни и досуг» · 2026.09</span>
+    <span>Полная расшифровка — yarkost-zhizni-i-dosug.md</span>
+  </footer>
+
+</div>
