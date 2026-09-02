@@ -1,0 +1,509 @@
+<title>Карта общения и стиля</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#F3EEF4;
+    --surface:#FFFFFF;
+    --surface-2:#E8DEEA;
+    --ink:#241925;
+    --ink-soft:#5B4B5E;
+    --ink-faint:#8A7B8D;
+    --accent:#B23A6B;
+    --accent-ink:#7A2049;
+    --accent-soft:#F0D3DF;
+    --route:#3F7D7A;
+    --support:#2E7D53;
+    --support-soft:#DCEFE3;
+    --growth:#6E42B8;
+    --growth-soft:#EAE0F9;
+    --border:#DED0DE;
+    --shadow: 0 1px 2px rgba(36,25,37,.04), 0 8px 24px -12px rgba(36,25,37,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1B1220;
+      --surface:#271A2C;
+      --surface-2:#332140;
+      --ink:#F3E9F4;
+      --ink-soft:#C9B4CB;
+      --ink-faint:#9A85A0;
+      --accent:#E8779F;
+      --accent-ink:#FFC9DC;
+      --accent-soft:#3D1E2C;
+      --route:#7FC4BE;
+      --support:#6FCE9E;
+      --support-soft:#1B3A2C;
+      --growth:#C1A3F2;
+      --growth-soft:#332450;
+      --border:#3E2C46;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B1220;
+    --surface:#271A2C;
+    --surface-2:#332140;
+    --ink:#F3E9F4;
+    --ink-soft:#C9B4CB;
+    --ink-faint:#9A85A0;
+    --accent:#E8779F;
+    --accent-ink:#FFC9DC;
+    --accent-soft:#3D1E2C;
+    --route:#7FC4BE;
+    --support:#6FCE9E;
+    --support-soft:#1B3A2C;
+    --growth:#C1A3F2;
+    --growth-soft:#332450;
+    --border:#3E2C46;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Public Sans', system-ui, -apple-system, sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,.eyebrow{ font-family:'Bricolage Grotesque', system-ui, sans-serif; text-wrap:balance; }
+  code, .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  a{ color:var(--route); }
+
+  .wrap{ max-width:1040px; margin:0 auto; padding: 56px 24px 96px; }
+
+  header.hero{
+    display:flex; flex-direction:column; gap:10px;
+    padding-bottom:36px; margin-bottom:40px;
+    border-bottom:1px solid var(--border);
+  }
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--accent-ink); font-weight:600;
+  }
+  .kicker::before{ content:"✦"; color:var(--accent); }
+  header.hero h1{
+    font-size: clamp(30px, 4.4vw, 44px);
+    font-weight:800; margin:2px 0 4px; letter-spacing:-.01em;
+  }
+  header.hero .sub{ color:var(--ink-soft); font-size:16px; max-width:660px; }
+  .meta-row{ display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; }
+  .meta-chip{
+    display:flex; align-items:center; gap:7px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:999px; padding:6px 14px; font-size:13px; color:var(--ink-soft);
+    box-shadow:var(--shadow);
+  }
+  .meta-chip b{ color:var(--ink); font-weight:600; }
+
+  .route{ position:relative; }
+  section.stop{ position:relative; padding-left:40px; margin-bottom:52px; }
+  section.stop::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:-52px;
+    width:2px; background:var(--border);
+  }
+  section.stop:last-child::before{ display:none; }
+  section.stop .dot{
+    position:absolute; left:0; top:2px;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--route);
+    display:flex; align-items:center; justify-content:center;
+    font-size:10.5px; font-weight:700; color:var(--route);
+    font-family:'JetBrains Mono', monospace;
+  }
+  .stop-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+  .stop-head h2{ font-size:23px; font-weight:700; margin:0; }
+  .stop-note{ color:var(--ink-faint); font-size:14px; margin:0 0 20px; }
+
+  .diag-list{ display:flex; flex-direction:column; gap:12px; }
+  .diag-item{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:14px 16px; box-shadow:var(--shadow);
+  }
+  .diag-num{
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:13px;
+    color:var(--accent-ink); background:var(--accent-soft);
+    border-radius:7px; padding:3px 8px; flex:none; margin-top:2px;
+  }
+  .diag-item p{ margin:0; font-size:15px; }
+
+  .grid{ display:grid; grid-template-columns:1fr; gap:18px; }
+  @media(min-width:760px){ .grid.cols-2{ grid-template-columns:1fr 1fr; } }
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:20px 22px; box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .card h3{ font-size:17px; margin:0; font-weight:700; }
+  .tag{
+    font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    border-radius:999px; padding:4px 10px; flex:none; white-space:nowrap;
+  }
+  .tag.support{ background:var(--support-soft); color:var(--support); }
+  .tag.growth{ background:var(--growth-soft); color:var(--growth); }
+  .tag.prio-high{ background:var(--accent-soft); color:var(--accent-ink); }
+  .tag.prio-med{ background:var(--surface-2); color:var(--ink-soft); }
+
+  .card .field-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink-faint); font-weight:600; margin:8px 0 2px;
+  }
+  .card p{ margin:0; font-size:14.5px; color:var(--ink); }
+  .card p.soft{ color:var(--ink-soft); }
+  .res-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:2px; }
+  .res-chip{
+    font-size:12.5px; background:var(--surface-2); border:1px solid var(--border);
+    border-radius:8px; padding:5px 9px; color:var(--ink-soft);
+  }
+  .res-chip b{ color:var(--ink); }
+
+  .class-row{ display:flex; gap:18px; flex-wrap:wrap; }
+  .class-box{
+    flex:1 1 260px; border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; background:var(--surface); box-shadow:var(--shadow);
+  }
+  .class-box h4{ margin:0 0 8px; font-size:14px; text-transform:uppercase; letter-spacing:.05em; }
+  .class-box.support h4{ color:var(--support); }
+  .class-box.growth h4{ color:var(--growth); }
+  .class-box ul{ margin:0; padding-left:18px; font-size:14.5px; color:var(--ink-soft); }
+  .class-box li{ margin-bottom:4px; }
+
+  .waves{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:760px){ .waves{ grid-template-columns:repeat(3,1fr); } }
+  .wave{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; box-shadow:var(--shadow);
+  }
+  .wave .wave-eyebrow{ font-size:11.5px; color:var(--route); font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  .wave h4{ margin:4px 0 10px; font-size:16px; }
+  .wave ul{ margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft); }
+  .wave li{ margin-bottom:6px; }
+
+  .first-step{
+    background:linear-gradient(160deg, var(--accent-soft), var(--surface) 65%);
+    border:1px solid var(--border); border-radius:16px; padding:24px 26px;
+    box-shadow:var(--shadow);
+  }
+  .first-step h3{ margin:0 0 8px; font-size:18px; }
+  .first-step p{ margin:0 0 14px; font-size:15px; color:var(--ink-soft); }
+  .prompt-box{
+    background:var(--surface); border:1px dashed var(--border); border-radius:10px;
+    padding:14px 16px; font-family:'JetBrains Mono', monospace; font-size:13px;
+    color:var(--ink); white-space:pre-wrap; line-height:1.6;
+  }
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--border);
+    color:var(--ink-faint); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    section.stop{ animation: rise .5s ease both; }
+    section.stop:nth-of-type(2){ animation-delay:.05s; }
+    section.stop:nth-of-type(3){ animation-delay:.1s; }
+    section.stop:nth-of-type(4){ animation-delay:.15s; }
+    section.stop:nth-of-type(5){ animation-delay:.2s; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">Сфера · Общение и стиль</span>
+    <h1>Карта общения на триместр</h1>
+    <p class="sub">Диагноз, цели и AI-агенты по итогам интервью — от узкого, реактивного круга
+      общения к окружению, которое подтягивает вверх, и к более честным отношениям с
+      близким человеком.</p>
+    <div class="meta-row">
+      <span class="meta-chip">🗓 <b>Интервью:</b>&nbsp;2026.09</span>
+      <span class="meta-chip">📍 <b>Горизонт:</b>&nbsp;сентябрь–декабрь 2026</span>
+      <span class="meta-chip">🤝 <b>Ближайший тест:</b>&nbsp;встреча клуба «Незаменимых», 26–27.09, Москва</span>
+    </div>
+  </header>
+
+  <div class="route">
+
+    <section class="stop">
+      <span class="dot">1</span>
+      <div class="stop-head"><h2>🔍 Диагноз</h2></div>
+      <p class="stop-note">Точки, где реально теряются связи, близость и энергия на общение.</p>
+      <div class="diag-list">
+        <div class="diag-item">
+          <span class="diag-num">01</span>
+          <p>Круг общения сузился до <b>двух человек</b> — вживую не виделся ни с кем уже
+          2+ месяца. Работает только принцип «отвечаю на приглашения» — сам не
+          инициирует встречи ни с кем.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">02</span>
+          <p>Есть «спящая сеть» — <b>4–6 близких друзей</b> (две разрозненные группы) и
+          много старых знакомых в соцсетях, с которыми годами нет контакта. Осознанно
+          предпочитает начинать с нуля через общий интерес, а не реанимировать старое.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">03</span>
+          <p>Первый контакт с незнакомцем вживую — <b>реальный психологический барьер</b>,
+          не просто лень. Смягчается атмосферой мероприятия и заранее готовыми темами
+          для разговора.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">04</span>
+          <p>Отношения с девушкой физически стабильны, но <b>эмоционально дистанцированы</b> —
+          «непроговорённые», без явных договорённостей об ожиданиях, финансах и будущем.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">05</span>
+          <p>С родителями частый, но исключительно <b>бытовой контакт</b>; приглашения
+          погостить систематически отклоняются из-за «цены» целого выходного — тот же
+          паттерн, что и отказ от поездки в Тверь (сфера «Яркость жизни»).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">2</span>
+      <div class="stop-head"><h2>🤖 Цели триместра</h2></div>
+      <p class="stop-note">Одна поддерживающая цель держит регулярность новых контактов, вторая — экзамен на близость в главных отношениях.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="card-top">
+            <h3>Цель #1 · Регулярное расширение круга общения</h3>
+            <span class="tag support">Поддерживающая</span>
+          </div>
+          <p><b>Цель:</b> минимум 1–2 новых мероприятия или активности в месяц с
+          открытостью к знакомству с новыми людьми, начиная со встречи клуба
+          «Незаменимых» 26–27.09.</p>
+          <p class="field-label">Ожидаемый результат</p>
+          <p class="soft">Вместо «зову только когда позвали» появляется живой поток новых
+          контактов — не по специальному намерению искать, а как побочный эффект
+          регулярного присутствия на интересных мероприятиях.</p>
+          <p class="field-label">Способ достижения</p>
+          <p class="soft">Перед каждым мероприятием — подготовка через Агент «Тренер
+          знакомств» (темы для разговора, мини-задание). После — короткий разбор:
+          с кем познакомился, что сработало. Раз в месяц — сверка со списком
+          «новые люди, с которыми хочется продолжить общение».</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Никогда не ешьте в одиночку», Кит Феррацци</b> — построение связей через щедрость и общий интерес, без «продающего» нетворкинга</span>
+            <span class="res-chip">🔗 уточни у пользователя (конкретные платформы для поиска попутчиков/друзей по интересам)</span>
+          </div>
+          <p class="field-label">Приоритет / эффект</p>
+          <p class="mono soft">Высокий · первый тест уже 26–27.09 · со временем формирует окружение «сильных людей»</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Цель #2 · Честные, близкие отношения с девушкой</h3>
+            <span class="tag growth">Рост · экзамен</span>
+          </div>
+          <p><b>Цель:</b> за 4 месяца перейти от «каждый сам по себе» к явному,
+          проговорённому диалогу об ожиданиях, финансах и совместном будущем — с
+          заметным ощущением сближения к декабрю.</p>
+          <p class="field-label">Ожидаемый результат</p>
+          <p class="soft">Отношения перестают держаться на умолчаниях — появляются
+          названные договорённости и регулярный формат честного разговора, а не только
+          бытовое сосуществование.</p>
+          <p class="field-label">Способ достижения</p>
+          <p class="soft">До её возвращения — список ключевых тем для честного разговора
+          (ожидания, финансы, совместное проживание, будущее), подготовленный через Агент
+          «Сближение». После переезда — еженедельный ритуал «чек-ин вдвоём» на 2-3
+          вопроса. Раз в месяц — короткая совместная рефлексия, что изменилось.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«5 языков любви», Гэри Чепмен</b> — как называть и слышать потребность в близости на понятном языке для двоих</span>
+            <span class="res-chip">📚 <b>«Семь принципов счастливого брака», Джон Готтман</b> — конкретные практики честного диалога в паре</span>
+          </div>
+          <p class="field-label">Приоритет / эффект</p>
+          <p class="mono soft">Высокий · привязан к её возвращению осенью · самая личная и самая значимая цель триместра</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">3</span>
+      <div class="stop-head"><h2>🗺️ Карта агентов</h2></div>
+      <p class="stop-note">Каждый агент закрывает конкретную боль, названную в интервью.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #1 · Тренер знакомств</h3>
+            <span class="tag prio-high">Приоритет: высокий</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">«Первый шаг на контакт вживую с незнакомым человеком — серьёзное
+          препятствие»; в моменте нет времени подобрать тему для разговора.</p>
+          <p class="field-label">Что делает</p>
+          <p>Перед конкретным мероприятием готовит 5–7 тем/вопросов для начала разговора
+          под контекст события и общие интересы. Периодически предлагает небольшие
+          тренировочные испытания (например, «сегодня заговори первым с одним новым
+          человеком»). После встречи — короткий разбор случая: что сработало, что нет.
+          Подсказывает, где органично искать новые знакомства по интересам.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «тренер по знакомствам, без давления и осуждения». Вход:
+          тип мероприятия, тема/интересы, уровень тревоги. Шаги: 1) 5-7 готовых тем для
+          старта разговора под контекст; 2) одно небольшое испытание на выбор (по
+          желанию, не обязательное); 3) после события — 2-3 вопроса для разбора: с кем
+          познакомился, что дало результат; 4) раз в месяц — сводка «где ещё можно
+          органично встретить похожих людей» под текущие интересы.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Как разговаривать с кем угодно», Лейл Лаундес</b> — конкретные техники small talk и начала разговора</span>
+            <span class="res-chip">📚 <b>«Никогда не ешьте в одиночку», Кит Феррацци</b> — философия нетворкинга через искренний интерес</span>
+            <span class="res-chip">📹 уточни у пользователя (проверенных каналов для интровертов не назову с уверенностью)</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Первый шаг к незнакомцу становится подготовленным действием, а не решением с нуля в моменте</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #2 · Сближение</h3>
+            <span class="tag prio-high">Приоритет: высокий</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">«У нас пока немного отстранённые отношения, не совсем
+          проговорённые, каждый сам по себе».</p>
+          <p class="field-label">Что делает</p>
+          <p>Помогает заранее сформулировать список тем для честного разговора (без
+          обвинительного тона), предлагает формат еженедельного чек-ина вдвоём с 2-3
+          вопросами, после разговора — помогает зафиксировать, о чём договорились.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «помощник в подготовке к разговорам о близости, не
+          терапевт». Вход: текущая ситуация, что хочется обсудить, к какому результату
+          идти. Шаги: 1) до её приезда — список ключевых тем (ожидания, финансы,
+          совместное проживание, будущее) в бережной формулировке; 2) шаблон
+          еженедельного чек-ина на двоих; 3) после разговора — короткая фиксация
+          договорённостей в заметке.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«5 языков любви», Гэри Чепмен</b></span>
+            <span class="res-chip">📚 <b>«Семь принципов счастливого брака», Джон Готтман</b></span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Разговоры о важном происходят по плану, а не откладываются до тех пор, пока не накопится напряжение</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #3 · Содержательные встречи с близкими</h3>
+            <span class="tag prio-med">Приоритет: средний</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">С родителями видятся часто, но общение бытовое; визиты в гости
+          систематически откладываются из-за «цены» целого выходного.</p>
+          <p class="field-label">Что делает</p>
+          <p>Периодически подсказывает 1-2 конкретные темы для более содержательного
+          разговора в моменты коротких пересечений (утро/вечер буднего дня). Раз в
+          полтора месяца предлагает компромиссный формат визита — не на весь день, а
+          сокращённый или совмещённый с чем-то полезным.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «мягкий напоминатель о содержательности». Шаги: 1) раз в
+          1-2 недели — одна тема для разговора вместо дежурного «как дела»; 2) раз в
+          1.5 месяца — предложить конкретный компромиссный формат визита с указанием
+          затрат времени, чтобы решение было осознанным, а не автоматическим отказом.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 уточни у пользователя (не хватает уверенного профильного источника именно по этому формату)</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Частый контакт с родителями начинает нести содержание, а отказ от визита становится осознанным выбором, а не автоматикой</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">4</span>
+      <div class="stop-head"><h2>Классификация целей</h2></div>
+      <div class="class-row">
+        <div class="class-box support">
+          <h4>Поддерживающие</h4>
+          <ul>
+            <li>Цель #1 — Регулярное расширение круга общения (держит поток новых
+            контактов в постоянном, невысоком темпе).</li>
+          </ul>
+        </div>
+        <div class="class-box growth">
+          <h4>Рост / экзамен</h4>
+          <ul>
+            <li>Цель #2 — Честные, близкие отношения с девушкой (переход на новый уровень
+            открытости в самых значимых отношениях, с реальным риском и реальной наградой).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">5</span>
+      <div class="stop-head"><h2>Roadmap</h2></div>
+      <div class="waves">
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 1 · 1–2 недели</span>
+          <h4>Быстрые победы</h4>
+          <ul>
+            <li>Агент #1 готовит темы для разговора под встречу клуба 26–27.09.</li>
+            <li>Агент #2 собирает список ключевых тем для честного разговора с девушкой
+            перед её возвращением.</li>
+          </ul>
+        </div>
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 2 · 3–8 недель</span>
+          <h4>Основа</h4>
+          <ul>
+            <li>Регулярное использование Агента #1 на новых мероприятиях (1-2 в месяц).</li>
+            <li>Еженедельный чек-ин вдвоём запускается после переезда девушки (Агент #2).</li>
+            <li>Первый пробный компромиссный визит к родителям (Агент #3).</li>
+          </ul>
+        </div>
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 3 · до 4 месяцев</span>
+          <h4>Масштаб</h4>
+          <ul>
+            <li>Оценка Цели #1: сколько новых знакомств состоялось и переросло в
+            повторный контакт.</li>
+            <li>Оценка Цели #2: какие договорённости названы, ощущается ли сближение.</li>
+            <li>При появлении органичного повода — восстановление контакта со старым
+            кругом друзей (без специального «напоминания написать»).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="first-step">
+    <h3>⚡ Первый шаг сегодня</h3>
+    <p>Открой чат с ассистентом и запусти первую версию «Тренера знакомств» под встречу
+    клуба «Незаменимых» 26–27 сентября. Результат — готовый список тем для разговора —
+    будет виден за 1–2 часа.</p>
+    <div class="prompt-box">Ты — мой тренер по знакомствам, без давления и осуждения.
+
+26-27 сентября я еду на встречу клуба "Незаменимых" в Москву (сообщество по ИИ).
+Я интроверт, первый шаг к незнакомому человеку даётся тяжело, но в комфортной
+атмосфере становится проще. Хочу быть готовым заранее.
+
+Дай:
+- 5-7 готовых тем/вопросов для начала разговора с незнакомым человеком на этом
+  мероприятии (с учётом общей темы ИИ и нетворкинга)
+- 2-3 фразы, чтобы естественно присоединиться к уже общающейся группе людей
+- одно небольшое необязательное испытание на эту поездку (например,
+  "заговорить первым хотя бы с одним новым человеком")
+
+В конце — короткий чек-лист из 3 пунктов, который можно держать в голове на
+самом мероприятии.</div>
+  </div>
+
+  <footer>
+    <span>Интервью по сфере «Общение и стиль» · 2026.09</span>
+    <span>Полная расшифровка — obshchenie-i-stil.md</span>
+  </footer>
+
+</div>
