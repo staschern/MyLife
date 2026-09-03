@@ -1,0 +1,522 @@
+<title>Карта режима тела</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#EEF3EC;
+    --surface:#FFFFFF;
+    --surface-2:#DFE9DB;
+    --ink:#16201A;
+    --ink-soft:#47543E;
+    --ink-faint:#79876E;
+    --accent:#C1502B;
+    --accent-ink:#7D3016;
+    --accent-soft:#F2DBCC;
+    --route:#1F6E52;
+    --support:#2E7D53;
+    --support-soft:#DCEFE3;
+    --growth:#6E42B8;
+    --growth-soft:#EAE0F9;
+    --border:#D6E0D0;
+    --shadow: 0 1px 2px rgba(22,32,26,.05), 0 8px 24px -12px rgba(22,32,26,.2);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#111A14;
+      --surface:#182821;
+      --surface-2:#20362B;
+      --ink:#E9F3EA;
+      --ink-soft:#AFC4AF;
+      --ink-faint:#7E9482;
+      --accent:#E8815A;
+      --accent-ink:#FFD4BB;
+      --accent-soft:#3A2418;
+      --route:#5FC79A;
+      --support:#6FCE9E;
+      --support-soft:#1B3A2C;
+      --growth:#C1A3F2;
+      --growth-soft:#332450;
+      --border:#2C4536;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#111A14;
+    --surface:#182821;
+    --surface-2:#20362B;
+    --ink:#E9F3EA;
+    --ink-soft:#AFC4AF;
+    --ink-faint:#7E9482;
+    --accent:#E8815A;
+    --accent-ink:#FFD4BB;
+    --accent-soft:#3A2418;
+    --route:#5FC79A;
+    --support:#6FCE9E;
+    --support-soft:#1B3A2C;
+    --growth:#C1A3F2;
+    --growth-soft:#332450;
+    --border:#2C4536;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Public Sans', system-ui, -apple-system, sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,.eyebrow{ font-family:'Bricolage Grotesque', system-ui, sans-serif; text-wrap:balance; }
+  code, .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  a{ color:var(--route); }
+
+  .wrap{ max-width:1040px; margin:0 auto; padding: 56px 24px 96px; }
+
+  header.hero{
+    display:flex; flex-direction:column; gap:10px;
+    padding-bottom:36px; margin-bottom:40px;
+    border-bottom:1px solid var(--border);
+  }
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--accent-ink); font-weight:600;
+  }
+  .kicker::before{ content:"✦"; color:var(--accent); }
+  header.hero h1{
+    font-size: clamp(30px, 4.4vw, 44px);
+    font-weight:800; margin:2px 0 4px; letter-spacing:-.01em;
+  }
+  header.hero .sub{ color:var(--ink-soft); font-size:16px; max-width:660px; }
+  .meta-row{ display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; }
+  .meta-chip{
+    display:flex; align-items:center; gap:7px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:999px; padding:6px 14px; font-size:13px; color:var(--ink-soft);
+    box-shadow:var(--shadow);
+  }
+  .meta-chip b{ color:var(--ink); font-weight:600; }
+
+  .route{ position:relative; }
+  section.stop{ position:relative; padding-left:40px; margin-bottom:52px; }
+  section.stop::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:-52px;
+    width:2px; background:var(--border);
+  }
+  section.stop:last-child::before{ display:none; }
+  section.stop .dot{
+    position:absolute; left:0; top:2px;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--route);
+    display:flex; align-items:center; justify-content:center;
+    font-size:10.5px; font-weight:700; color:var(--route);
+    font-family:'JetBrains Mono', monospace;
+  }
+  .stop-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+  .stop-head h2{ font-size:23px; font-weight:700; margin:0; }
+  .stop-note{ color:var(--ink-faint); font-size:14px; margin:0 0 20px; }
+
+  .diag-list{ display:flex; flex-direction:column; gap:12px; }
+  .diag-item{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:14px 16px; box-shadow:var(--shadow);
+  }
+  .diag-num{
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:13px;
+    color:var(--accent-ink); background:var(--accent-soft);
+    border-radius:7px; padding:3px 8px; flex:none; margin-top:2px;
+  }
+  .diag-item p{ margin:0; font-size:15px; }
+
+  .grid{ display:grid; grid-template-columns:1fr; gap:18px; }
+  @media(min-width:760px){ .grid.cols-2{ grid-template-columns:1fr 1fr; } }
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:20px 22px; box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .card h3{ font-size:17px; margin:0; font-weight:700; }
+  .tag{
+    font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    border-radius:999px; padding:4px 10px; flex:none; white-space:nowrap;
+  }
+  .tag.support{ background:var(--support-soft); color:var(--support); }
+  .tag.growth{ background:var(--growth-soft); color:var(--growth); }
+  .tag.prio-high{ background:var(--accent-soft); color:var(--accent-ink); }
+  .tag.prio-med{ background:var(--surface-2); color:var(--ink-soft); }
+
+  .card .field-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink-faint); font-weight:600; margin:8px 0 2px;
+  }
+  .card p{ margin:0; font-size:14.5px; color:var(--ink); }
+  .card p.soft{ color:var(--ink-soft); }
+  .res-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:2px; }
+  .res-chip{
+    font-size:12.5px; background:var(--surface-2); border:1px solid var(--border);
+    border-radius:8px; padding:5px 9px; color:var(--ink-soft);
+  }
+  .res-chip b{ color:var(--ink); }
+
+  .metrics{ display:flex; gap:10px; flex-wrap:wrap; margin-top:2px; }
+  .metric{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:10px;
+    padding:8px 12px; min-width:104px;
+  }
+  .metric .m-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+  .metric .m-val{ font-family:'JetBrains Mono', monospace; font-size:16px; font-weight:600; color:var(--ink); }
+  .metric .m-arrow{ font-size:12px; color:var(--route); font-weight:600; }
+
+  .class-row{ display:flex; gap:18px; flex-wrap:wrap; }
+  .class-box{
+    flex:1 1 260px; border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; background:var(--surface); box-shadow:var(--shadow);
+  }
+  .class-box h4{ margin:0 0 8px; font-size:14px; text-transform:uppercase; letter-spacing:.05em; }
+  .class-box.support h4{ color:var(--support); }
+  .class-box.growth h4{ color:var(--growth); }
+  .class-box ul{ margin:0; padding-left:18px; font-size:14.5px; color:var(--ink-soft); }
+  .class-box li{ margin-bottom:4px; }
+
+  .waves{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:760px){ .waves{ grid-template-columns:repeat(3,1fr); } }
+  .wave{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; box-shadow:var(--shadow);
+  }
+  .wave .wave-eyebrow{ font-size:11.5px; color:var(--route); font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  .wave h4{ margin:4px 0 10px; font-size:16px; }
+  .wave ul{ margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft); }
+  .wave li{ margin-bottom:6px; }
+
+  .first-step{
+    background:linear-gradient(160deg, var(--accent-soft), var(--surface) 65%);
+    border:1px solid var(--border); border-radius:16px; padding:24px 26px;
+    box-shadow:var(--shadow);
+  }
+  .first-step h3{ margin:0 0 8px; font-size:18px; }
+  .first-step p{ margin:0 0 14px; font-size:15px; color:var(--ink-soft); }
+  .prompt-box{
+    background:var(--surface); border:1px dashed var(--border); border-radius:10px;
+    padding:14px 16px; font-family:'JetBrains Mono', monospace; font-size:13px;
+    color:var(--ink); white-space:pre-wrap; line-height:1.6;
+  }
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--border);
+    color:var(--ink-faint); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    section.stop{ animation: rise .5s ease both; }
+    section.stop:nth-of-type(2){ animation-delay:.05s; }
+    section.stop:nth-of-type(3){ animation-delay:.1s; }
+    section.stop:nth-of-type(4){ animation-delay:.15s; }
+    section.stop:nth-of-type(5){ animation-delay:.2s; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">Сфера · Спорт и здоровье</span>
+    <h1>Карта режима тела на триместр</h1>
+    <p class="sub">Диагноз, цели и AI-агенты по итогам интервью — от разрушенного
+      «магического утра» и заброшенной силовой к устойчивому режиму и рекомпозиции тела.</p>
+    <div class="meta-row">
+      <span class="meta-chip">🗓 <b>Интервью:</b>&nbsp;2026.09</span>
+      <span class="meta-chip">📍 <b>Горизонт:</b>&nbsp;сентябрь–декабрь 2026</span>
+      <span class="meta-chip">📏 <b>Замер:</b>&nbsp;01.08.2026 — вес 68,75 кг, талия 89 см</span>
+    </div>
+  </header>
+
+  <div class="route">
+
+    <section class="stop">
+      <span class="dot">1</span>
+      <div class="stop-head"><h2>🔍 Диагноз</h2></div>
+      <p class="stop-note">Точки, где реально теряются форма, режим и энергия тела.</p>
+      <div class="diag-list">
+        <div class="diag-item">
+          <span class="diag-num">01</span>
+          <p>Полноценная силовая (3×/неделю, 40–60 мин) заброшена 2 месяца назад —
+          внешний повод (переезд девушки на 2 недели) прошёл, но привычка <b>не
+          восстановилась сама</b>. Сейчас только ~5-минутная зарядка и гантели в
+          рабочих перерывах.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">02</span>
+          <p>Сидячий образ жизни без компенсации: талия выросла до <b>89 см за ~2 года</b>,
+          вес 68,75 кг, жир 28,6% (01.08.2026). План на силовую + йогу + бег (по 2 дня
+          каждое) существует только в голове.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">03</span>
+          <p>Ужин систематически «тяжёлый» — <b>колбаса, плавленый сыр, шаурма/чебурек,
+          иногда торт</b>. Фактор, который сам не связывал с ростом талии, но готов
+          пересмотреть.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">04</span>
+          <p>Разрушился целый утренний распорядок «магического утра» (подъём в 5:00,
+          чередование спорт/языки/чтение/проекты) — <b>будильник игнорируется</b>,
+          подъём съезжает на 1–1,5 часа, вместе со спортом теряются и другие практики.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">05</span>
+          <p>Нет структурированной программы или трекера прогресса — идея чередования
+          направлений есть, но <b>не переведена в план</b> и не отслеживается системно.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">2</span>
+      <div class="stop-head"><h2>🤖 Цели триместра</h2></div>
+      <p class="stop-note">Одна поддерживающая цель держит устойчивость режима, вторая — экзамен на изменение композиции тела.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="card-top">
+            <h3>Цель #1 · Устойчивый режим тренировок</h3>
+            <span class="tag support">Поддерживающая</span>
+          </div>
+          <p><b>Цель:</b> силовая / йога / бег по 2 дня в неделю каждое направление,
+          без срывов минимум 4 недели подряд к концу триместра.</p>
+          <p class="field-label">Ожидаемый результат</p>
+          <p class="soft">Тренировки перестают зависеть от мотивации в моменте —
+          появляется недельная сетка с заранее известным содержанием дня, и подъём по
+          будильнику снова работает.</p>
+          <p class="field-label">Способ достижения</p>
+          <p class="soft">Старт с возврата одного направления (силовая — был самый
+          развитый навык), затем постепенное добавление йоги и бега. Вечером накануне —
+          короткое напоминание о завтрашней тренировке от Агента «Тренер-конструктор
+          режима». Еженедельная сверка выполнения без осуждения за срывы.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Атомные привычки», Джеймс Клир</b> — восстановление разрушенной привычки через маленький первый шаг и триггер</span>
+            <span class="res-chip">🔗 StrongLifts 5×5 — известная программа базовой силовой для постепенного возврата к 40-60 мин</span>
+          </div>
+          <p class="field-label">Приоритет / эффект</p>
+          <p class="mono soft">Высокий · база для всех остальных целей сферы</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Цель #2 · Композиция тела</h3>
+            <span class="tag growth">Рост · экзамен</span>
+          </div>
+          <p><b>Цель:</b> вес в среднем 67 кг, талия 84-85 см к концу декабря — с
+          сохранением/ростом силовых показателей (рекомпозиция, а не просто похудение).</p>
+          <div class="metrics">
+            <div class="metric"><div class="m-label">Вес</div><div class="m-val">68,75 → <span class="m-arrow">67 кг</span></div></div>
+            <div class="metric"><div class="m-label">Талия</div><div class="m-val">89 → <span class="m-arrow">84-85 см</span></div></div>
+          </div>
+          <p class="field-label">Ожидаемый результат</p>
+          <p class="soft">Впервые за 2 года — не рост талии, а её измеримое снижение,
+          вместе с сохранением или ростом силы (не просто «похудеть», а стать
+          одновременно стройнее и сильнее).</p>
+          <p class="field-label">Способ достижения</p>
+          <p class="soft">Опирается на Цель #1 (регулярность) плюс замена ужина на более
+          сбалансированные варианты (Агент «Питание под цель»). Ежемесячный замер
+          антропометрии (уже есть привычка) с трендом от Агента «Трекер прогресса».</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">🔗 Гарвардская тарелка здорового питания — простой ориентир по составу приёма пищи без строгой диеты</span>
+            <span class="res-chip">📚 уточни у пользователя (профильной книги по рекомпозиции тела для не-профессионального спортсмена не назову с уверенностью)</span>
+          </div>
+          <p class="field-label">Приоритет / эффект</p>
+          <p class="mono soft">Высокий · измеримо каждый месяц по уже привычной форме замеров</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">3</span>
+      <div class="stop-head"><h2>🗺️ Карта агентов</h2></div>
+      <p class="stop-note">Каждый агент закрывает конкретную боль, названную в интервью.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #1 · Тренер-конструктор режима</h3>
+            <span class="tag prio-high">Приоритет: высокий</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">План на 3 направления существует только в голове; будильник на
+          5:00/5:30 игнорируется, подъём съезжает на 6:00-6:30.</p>
+          <p class="field-label">Что делает</p>
+          <p>Строит недельную сетку из 3 направлений по 2 дня каждое (например
+          пн/чт — силовая, вт/пт — бег, ср/сб — йога, вс — отдых), с конкретными
+          упражнениями и постепенным возвратом к 40-60 минутам. Накануне вечером —
+          короткое напоминание, что завтра и во сколько. При пропуске — разбор без
+          осуждения и план на следующий день, а не отказ от всего.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «личный тренер-конструктор режима». Вход: свободное
+          утреннее время, история нагрузок (силовая 3×/нед по 40-60 мин), текущий
+          уровень, время подъёма и отбоя. Шаги: 1) недельная сетка 3 направлений;
+          2) для каждого дня — конкретные упражнения/длительность с постепенным
+          наращиванием; 3) вечернее напоминание о завтрашнем дне; 4) при пропуске —
+          мягкий разбор и корректировка, не полная отмена плана.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">🔗 StrongLifts 5×5 — база для силовых дней</span>
+            <span class="res-chip">🔗 Couch to 5K (C25K) — известная программа постепенного возврата к бегу</span>
+            <span class="res-chip">📹 уточни у пользователя (конкретных йога-каналов на русском не назову с уверенностью)</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Тренировка дня становится готовым решением, а не вопросом мотивации в 5 утра</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #2 · Питание под цель</h3>
+            <span class="tag prio-high">Приоритет: высокий</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">Ужин систематически тяжёлый (колбаса/плавленый сыр,
+          шаурма/чебурек, торт) — готов пересмотреть, но нет плана замены.</p>
+          <p class="field-label">Что делает</p>
+          <p>Предлагает более сбалансированные, но такие же простые замены (в рамках
+          привычного формата «готовое из ВкусВилл, минимум готовки»), сохраняя
+          3-разовый режим и время приёмов пищи. Не трогает завтрак/обед, если они
+          устраивают — точечно улучшает именно ужин.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «практичный помощник по питанию для занятого человека
+          без желания готовить сложно». Вход: текущее меню, доступные сервисы
+          (ВкусВилл), цель (рекомпозиция), нелюбовь к готовке. Шаги: 1) короткий разбор
+          текущего ужина; 2) 3-5 конкретных замен не сложнее в приготовлении; 3) не
+          менять то, что уже устраивает (завтрак/обед); 4) раз в месяц — сверка с
+          антропометрией и корректировка порций.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">🔗 Гарвардская тарелка здорового питания</span>
+            <span class="res-chip">🔗 уточни у пользователя (готовые ЗОЖ-линейки ВкусВилл — состав меняется, проверять на месте)</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Ужин перестаёт незаметно перечёркивать эффект тренировок</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #3 · Трекер антропометрии и прогресса</h3>
+            <span class="tag prio-med">Приоритет: средний</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">Замеры делает вручную каждый месяц, но нет автоматического
+          анализа тренда и связи с тем, насколько соблюдался план тренировок.</p>
+          <p class="field-label">Что делает</p>
+          <p>Собирает ежемесячные замеры (вес, талия и остальные точки), строит простой
+          тренд по ключевым метрикам и сопоставляет его с процентом выполненных
+          тренировочных дней за тот же период — чтобы была видна связь между
+          дисциплиной и результатом, а не только сухие цифры.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «аналитик прогресса без оценочных суждений». Вход:
+          месячные замеры (по уже используемой форме), недельные отметки «план
+          выполнен / нет». Шаги: 1) занести новые замеры; 2) показать тренд веса и
+          талии от месяца к месяцу; 3) сопоставить с % выполненных тренировочных дней;
+          4) раз в месяц — короткая сводка без давления, что изменилось и что это
+          означает для темпа.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 уточни у пользователя (специального источника по трекингу антропометрии не требуется — задача решается промптом)</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Прогресс становится видимым фактом, а не смутным ощущением «вроде бы получше»</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">4</span>
+      <div class="stop-head"><h2>Классификация целей</h2></div>
+      <div class="class-row">
+        <div class="class-box support">
+          <h4>Поддерживающие</h4>
+          <ul>
+            <li>Цель #1 — Устойчивый режим тренировок (держит регулярность,
+            от которой зависит всё остальное в сфере).</li>
+          </ul>
+        </div>
+        <div class="class-box growth">
+          <h4>Рост / экзамен</h4>
+          <ul>
+            <li>Цель #2 — Композиция тела (измеримая физическая трансформация: вес
+            67 кг, талия 84-85 см, сохранение силы — новый уровень, а не просто
+            поддержание текущего).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">5</span>
+      <div class="stop-head"><h2>Roadmap</h2></div>
+      <div class="waves">
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 1 · 1–2 недели</span>
+          <h4>Быстрые победы</h4>
+          <ul>
+            <li>Агент #1 строит план на первую неделю — возврат силовой (самый
+            развитый навык) в целевое утреннее время.</li>
+            <li>Агент #3 заносит текущие замеры и фиксирует точку отсчёта.</li>
+          </ul>
+        </div>
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 2 · 3–8 недель</span>
+          <h4>Основа</h4>
+          <ul>
+            <li>Постепенное добавление йоги и бега — все 3 направления по 2 дня в
+            неделю.</li>
+            <li>Агент #2 меняет ужин на более сбалансированные варианты.</li>
+            <li>Еженедельная сверка выполнения плана.</li>
+          </ul>
+        </div>
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 3 · до 4 месяцев</span>
+          <h4>Масштаб</h4>
+          <ul>
+            <li>4 недели подряд по плану без срывов — Цель #1 достигнута.</li>
+            <li>Ежемесячные замеры показывают тренд к весу 67 кг и талии 84-85 см
+            (Агент #3).</li>
+            <li>Корректировка нагрузки и меню по мере прогресса.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="first-step">
+    <h3>⚡ Первый шаг сегодня</h3>
+    <p>Открой чат с ассистентом и запусти «Тренера-конструктора режима» под ближайшую
+    неделю, начиная с возврата силовой. Результат — готовый план на 7 дней — будет виден
+    за 1–2 часа.</p>
+    <div class="prompt-box">Ты — мой личный тренер-конструктор режима.
+
+Раньше занимался силовой 3 раза в неделю по 40-60 минут, но забросил 2 месяца
+назад. Хочу постепенно вернуться и в итоге чередовать 3 направления по 2 дня в
+неделю: силовая, йога, бег. Подъём планирую на 5:00 (отбой в 22:00), сейчас
+встаю в 6:00-6:30.
+
+Построй план на ближайшую неделю:
+- начни только с возврата силовой (2-3 дня), без йоги и бега пока
+- для каждого дня тренировки — конкретные упражнения и длительность,
+  начиная с щадящего объёма и наращивая к 40-60 минутам за 3-4 недели
+- добавь короткое "вечернее напоминание" на день перед тренировкой
+- в конце - 2 вопроса мне, чтобы уточнить инвентарь и ограничения по здоровью,
+  если они есть</div>
+  </div>
+
+  <footer>
+    <span>Интервью по сфере «Спорт и здоровье» · 2026.09</span>
+    <span>Полная расшифровка — sport-i-zdorove.md</span>
+  </footer>
+
+</div>
