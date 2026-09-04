@@ -1,0 +1,523 @@
+<title>Карта диспетчерской</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#EEF0F3;
+    --surface:#FFFFFF;
+    --surface-2:#DFE3E9;
+    --ink:#161B22;
+    --ink-soft:#454E5C;
+    --ink-faint:#78818F;
+    --accent:#B8862B;
+    --accent-ink:#7A5714;
+    --accent-soft:#F0E1C0;
+    --route:#2F5D8A;
+    --support:#2E7D53;
+    --support-soft:#DCEFE3;
+    --growth:#6E42B8;
+    --growth-soft:#EAE0F9;
+    --border:#D5DAE1;
+    --shadow: 0 1px 2px rgba(22,27,34,.05), 0 8px 24px -12px rgba(22,27,34,.2);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#11151C;
+      --surface:#1A212C;
+      --surface-2:#222B39;
+      --ink:#E7ECF3;
+      --ink-soft:#AAB4C4;
+      --ink-faint:#7A8494;
+      --accent:#E3AC55;
+      --accent-ink:#FFDFA0;
+      --accent-soft:#3A2C10;
+      --route:#78A8DE;
+      --support:#6FCE9E;
+      --support-soft:#1B3A2C;
+      --growth:#C1A3F2;
+      --growth-soft:#332450;
+      --border:#2B3444;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#11151C;
+    --surface:#1A212C;
+    --surface-2:#222B39;
+    --ink:#E7ECF3;
+    --ink-soft:#AAB4C4;
+    --ink-faint:#7A8494;
+    --accent:#E3AC55;
+    --accent-ink:#FFDFA0;
+    --accent-soft:#3A2C10;
+    --route:#78A8DE;
+    --support:#6FCE9E;
+    --support-soft:#1B3A2C;
+    --growth:#C1A3F2;
+    --growth-soft:#332450;
+    --border:#2B3444;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Public Sans', system-ui, -apple-system, sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,.eyebrow{ font-family:'Bricolage Grotesque', system-ui, sans-serif; text-wrap:balance; }
+  code, .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  a{ color:var(--route); }
+
+  .wrap{ max-width:1040px; margin:0 auto; padding: 56px 24px 96px; }
+
+  header.hero{
+    display:flex; flex-direction:column; gap:10px;
+    padding-bottom:36px; margin-bottom:40px;
+    border-bottom:1px solid var(--border);
+  }
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--accent-ink); font-weight:600;
+  }
+  .kicker::before{ content:"✦"; color:var(--accent); }
+  header.hero h1{
+    font-size: clamp(30px, 4.4vw, 44px);
+    font-weight:800; margin:2px 0 4px; letter-spacing:-.01em;
+  }
+  header.hero .sub{ color:var(--ink-soft); font-size:16px; max-width:660px; }
+  .meta-row{ display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; }
+  .meta-chip{
+    display:flex; align-items:center; gap:7px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:999px; padding:6px 14px; font-size:13px; color:var(--ink-soft);
+    box-shadow:var(--shadow);
+  }
+  .meta-chip b{ color:var(--ink); font-weight:600; }
+
+  .route{ position:relative; }
+  section.stop{ position:relative; padding-left:40px; margin-bottom:52px; }
+  section.stop::before{
+    content:""; position:absolute; left:9px; top:6px; bottom:-52px;
+    width:2px; background:var(--border);
+  }
+  section.stop:last-child::before{ display:none; }
+  section.stop .dot{
+    position:absolute; left:0; top:2px;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--route);
+    display:flex; align-items:center; justify-content:center;
+    font-size:10.5px; font-weight:700; color:var(--route);
+    font-family:'JetBrains Mono', monospace;
+  }
+  .stop-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+  .stop-head h2{ font-size:23px; font-weight:700; margin:0; }
+  .stop-note{ color:var(--ink-faint); font-size:14px; margin:0 0 20px; }
+
+  .diag-list{ display:flex; flex-direction:column; gap:12px; }
+  .diag-item{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:14px 16px; box-shadow:var(--shadow);
+  }
+  .diag-num{
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:13px;
+    color:var(--accent-ink); background:var(--accent-soft);
+    border-radius:7px; padding:3px 8px; flex:none; margin-top:2px;
+  }
+  .diag-item p{ margin:0; font-size:15px; }
+
+  .grid{ display:grid; grid-template-columns:1fr; gap:18px; }
+  @media(min-width:760px){ .grid.cols-2{ grid-template-columns:1fr 1fr; } }
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:20px 22px; box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .card h3{ font-size:17px; margin:0; font-weight:700; }
+  .tag{
+    font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    border-radius:999px; padding:4px 10px; flex:none; white-space:nowrap;
+  }
+  .tag.support{ background:var(--support-soft); color:var(--support); }
+  .tag.growth{ background:var(--growth-soft); color:var(--growth); }
+  .tag.prio-high{ background:var(--accent-soft); color:var(--accent-ink); }
+  .tag.prio-med{ background:var(--surface-2); color:var(--ink-soft); }
+
+  .card .field-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink-faint); font-weight:600; margin:8px 0 2px;
+  }
+  .card p{ margin:0; font-size:14.5px; color:var(--ink); }
+  .card p.soft{ color:var(--ink-soft); }
+  .res-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:2px; }
+  .res-chip{
+    font-size:12.5px; background:var(--surface-2); border:1px solid var(--border);
+    border-radius:8px; padding:5px 9px; color:var(--ink-soft);
+  }
+  .res-chip b{ color:var(--ink); }
+
+  .class-row{ display:flex; gap:18px; flex-wrap:wrap; }
+  .class-box{
+    flex:1 1 260px; border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; background:var(--surface); box-shadow:var(--shadow);
+  }
+  .class-box h4{ margin:0 0 8px; font-size:14px; text-transform:uppercase; letter-spacing:.05em; }
+  .class-box.support h4{ color:var(--support); }
+  .class-box.growth h4{ color:var(--growth); }
+  .class-box ul{ margin:0; padding-left:18px; font-size:14.5px; color:var(--ink-soft); }
+  .class-box li{ margin-bottom:4px; }
+
+  .waves{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media(min-width:760px){ .waves{ grid-template-columns:repeat(3,1fr); } }
+  .wave{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; box-shadow:var(--shadow);
+  }
+  .wave .wave-eyebrow{ font-size:11.5px; color:var(--route); font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+  .wave h4{ margin:4px 0 10px; font-size:16px; }
+  .wave ul{ margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft); }
+  .wave li{ margin-bottom:6px; }
+
+  .first-step{
+    background:linear-gradient(160deg, var(--accent-soft), var(--surface) 65%);
+    border:1px solid var(--border); border-radius:16px; padding:24px 26px;
+    box-shadow:var(--shadow);
+  }
+  .first-step h3{ margin:0 0 8px; font-size:18px; }
+  .first-step p{ margin:0 0 14px; font-size:15px; color:var(--ink-soft); }
+  .prompt-box{
+    background:var(--surface); border:1px dashed var(--border); border-radius:10px;
+    padding:14px 16px; font-family:'JetBrains Mono', monospace; font-size:13px;
+    color:var(--ink); white-space:pre-wrap; line-height:1.6;
+  }
+
+  .callout{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:12px;
+    padding:14px 16px; font-size:14px; color:var(--ink-soft); margin-bottom:20px;
+  }
+  .callout b{ color:var(--ink); }
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--border);
+    color:var(--ink-faint); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    section.stop{ animation: rise .5s ease both; }
+    section.stop:nth-of-type(2){ animation-delay:.05s; }
+    section.stop:nth-of-type(3){ animation-delay:.1s; }
+    section.stop:nth-of-type(4){ animation-delay:.15s; }
+    section.stop:nth-of-type(5){ animation-delay:.2s; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">Сфера · Система и порядок</span>
+    <h1>Карта диспетчерской на триместр</h1>
+    <p class="sub">Диагноз, цели и AI-агенты по итогам интервью — от зрелой, но
+      «слепой» системы планирования (ЯВД) к почасовому распорядку и раннему
+      обнаружению расхождений.</p>
+    <div class="meta-row">
+      <span class="meta-chip">🗓 <b>Интервью:</b>&nbsp;2026.09</span>
+      <span class="meta-chip">📍 <b>Горизонт:</b>&nbsp;сентябрь–декабрь 2026</span>
+      <span class="meta-chip">🗂 <b>Система:</b>&nbsp;yavdele.com («ЯВД»), с 2020</span>
+    </div>
+  </header>
+
+  <div class="callout">
+    <b>Контекст находки:</b> у пользователя уже 6 лет работает собственный сайт-планировщик
+    «ЯВД» — почти полный аналог этой системы: цели по 8 сферам на триместры, недельное
+    планирование, дневники, повторяющиеся задачи. Проблема этой сферы — не «нет системы»,
+    а «система не поднимает тревогу», когда план расходится с фактом.
+  </div>
+
+  <div class="route">
+
+    <section class="stop">
+      <span class="dot">1</span>
+      <div class="stop-head"><h2>🔍 Диагноз</h2></div>
+      <p class="stop-note">Точки, где реально теряются контроль, порядок и время.</p>
+      <div class="diag-list">
+        <div class="diag-item">
+          <span class="diag-num">01</span>
+          <p>Разрыв между планом и фактом в ЯВД <b>не запускает пересмотр</b>: система
+          честно фиксирует и план (силовая на Вт/Чт/Сб), и факт («просто зарядка»
+          вместо неё), но реагирует на устойчивое расхождение только <b>раз в
+          триместр</b> — до 4 месяцев слепой зоны.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">02</span>
+          <p>Физический беспорядок копится годами — переполненный шкаф со старыми
+          вещами/сувенирами, много неношеной одежды. Разбор давно назрел, но не
+          запускается сам по себе.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">03</span>
+          <p>Цифровое хранилище почти заполнено — <b>~100 ГБ свободно из 1 ТБ</b>,
+          архивация и чистка давно не проводились.</p>
+        </div>
+        <div class="diag-item">
+          <span class="diag-num">04</span>
+          <p>Почасовой распорядок «магического утра» разрушен: задачи, которые раньше
+          распределялись по дням недели (спорт/языки/чтение/проекты), сейчас
+          <b>никуда не помещаются</b> — нет инструмента для перераспределения под
+          изменившиеся обстоятельства.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">2</span>
+      <div class="stop-head"><h2>🤖 Цели триместра</h2></div>
+      <p class="stop-note">Одна поддерживающая цель ловит расхождения рано, вторая — экзамен на восстановление почасового распорядка.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="card-top">
+            <h3>Цель #1 · Регулярная сверка план/факт</h3>
+            <span class="tag support">Поддерживающая</span>
+          </div>
+          <p><b>Цель:</b> раз в 2 недели — явная проверка ключевых регулярных дел по всем
+          сферам, вместо ожидания 4-месячного цикла триместра.</p>
+          <p class="field-label">Ожидаемый результат</p>
+          <p class="soft">Устойчивое расхождение (как с силовой) обнаруживается на 2-3
+          неделе, а не через 2 месяца — появляется точка, где можно осознанно решить:
+          продолжать, снизить планку или перезапустить с малого шага.</p>
+          <p class="field-label">Способ достижения</p>
+          <p class="soft">Раз в 2 недели Агент «Диспетчер расхождений» сверяет факт с
+          планом по ключевым пунктам (тренировки, чтение, языки и т.д.) и явно
+          сигнализирует при повторяющемся пропуске. Дополнительно — раз в 2 недели
+          отчёт о разборе одной зоны (шкаф/цифровая папка) от Агента «Хранитель
+          порядка».</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Как привести дела в порядок» (GTD), Дэвид Аллен</b> — система регулярного пересмотра обязательств без потери из виду</span>
+          </div>
+          <p class="field-label">Приоритет / эффект</p>
+          <p class="mono soft">Высокий · закрывает главный найденный разрыв системы</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Цель #2 · Восстановленный почасовой распорядок</h3>
+            <span class="tag growth">Рост · экзамен</span>
+          </div>
+          <p><b>Цель:</b> к концу триместра — работающее, реально соблюдаемое расписание
+          магических утра/вечера с чередованием задач по дням недели (не только
+          прописанное в ЯВД, но и выполняемое на практике).</p>
+          <p class="field-label">Ожидаемый результат</p>
+          <p class="soft">Задачи из разных сфер (спорт, языки, чтение, проекты)
+          распределены по конкретным дням и часам без перегрузки одного утра — и это
+          расписание регулярно пересобирается под меняющиеся обстоятельства, а не
+          составляется один раз и забывается.</p>
+          <p class="field-label">Способ достижения</p>
+          <p class="soft">Агент «Конструктор дня» строит первую версию расписания на
+          основе целей и регулярных задач по всем сферам, распределяя их по разным
+          дням (не всё в одно утро). Пользователь вручную переносит план в ЯВД.
+          Расписание пересобирается ежемесячно или при значимом изменении
+          обстоятельств.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Джедайские техники», Максим Дорофеев</b> — распределение задач по энергии и времени суток, работа с силой воли</span>
+          </div>
+          <p class="field-label">Приоритет / эффект</p>
+          <p class="mono soft">Высокий · напрямую влияет на цели по спорту, обучению и проектам</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">3</span>
+      <div class="stop-head"><h2>🗺️ Карта агентов</h2></div>
+      <p class="stop-note">Каждый агент закрывает конкретную боль, названную в интервью.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #1 · Конструктор дня</h3>
+            <span class="tag prio-high">Приоритет: высокий</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">Все цели и регулярные дела не помещаются в одно «магическое
+          утро»; нет инструмента, который распределит их по часам и дням недели.</p>
+          <p class="field-label">Что делает</p>
+          <p>Берёт список целей и регулярных задач по всем сферам, распределяет их по
+          часам «магических» утра и вечера, чередуя между разными днями недели (а не
+          концентрируя всё в одном дне). Периодически (раз в месяц или по запросу)
+          пересобирает структуру под изменившиеся обстоятельства. Дополнительно
+          помогает с недельным планом и намерениями на месяц. Результат пользователь
+          вручную переносит в ЯВД.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «личный тайм-архитектор». Вход: список целей/регулярных
+          задач по сферам, доступные временные окна (утро с 5:00, вечер), текущие
+          приоритеты триместра. Шаги: 1) собрать все регулярные обязательства;
+          2) распределить по дням недели, чередуя, а не концентрируя; 3) для каждого
+          дня — конкретный почасовой блок под задачу; 4) раз в месяц или по сигналу —
+          пересборка под новые обстоятельства; 5) отдельно — черновик недельного плана
+          и намерений на месяц.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Джедайские техники», Максим Дорофеев</b></span>
+            <span class="res-chip">📚 <b>GTD, Дэвид Аллен</b> — сбор всех обязательств перед распределением</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Магическое утро снова работает как система, а не как список, который не помещается никуда</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #2 · Диспетчер расхождений</h3>
+            <span class="tag prio-high">Приоритет: высокий</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">Расхождение план/факт (например, силовая → просто зарядка)
+          не поднимает тревогу до конца триместра — до 4 месяцев слепой зоны.</p>
+          <p class="field-label">Что делает</p>
+          <p>Раз в 1-2 недели просматривает данные из общего git-репозитория (профиль,
+          результаты по сферам) и сверяет факт с планом по ключевым регулярным делам.
+          При устойчивом расхождении (например, 2+ недели подряд) — явный сигнал с
+          вариантами решения: продолжать как есть, снизить планку, или перезапустить с
+          малого шага. Со временем может читать данные и от других агентов сфер, если
+          они появятся в репозитории.</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «диспетчер без осуждения, фокус на сигналах, а не на
+          вине». Вход: git-репозиторий с профилем/данными по сферам, список ключевых
+          регулярных обязательств. Шаги: 1) раз в 1-2 недели сверять факт с планом;
+          2) при расхождении 2+ недели подряд — явный сигнал с вариантами решения;
+          3) вести короткий лог принятых решений, чтобы был виден паттерн со
+          временем.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 уточни у пользователя (задача решается промптом и структурой git, отдельного профильного источника не требуется)</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Устойчивое расхождение обнаруживается за недели, а не за месяцы</p>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <h3>Агент #3 · Хранитель порядка</h3>
+            <span class="tag prio-med">Приоритет: средний</span>
+          </div>
+          <p class="field-label">Боль</p>
+          <p class="soft">Шкафы и цифровой архив копятся годами без ревизии — «давно
+          пора», но никогда не запускается само по себе.</p>
+          <p class="field-label">Что делает</p>
+          <p>Напоминает и отслеживает, когда какая зона (шкаф/ящик/папка на компьютере)
+          в последний раз разбиралась, раз в 2 недели предлагает одну конкретную зону
+          для разбора с простым чек-листом на 15-30 минут, ведёт лог «разобрано/когда».</p>
+          <p class="field-label">Как реализовать через метапромптинг</p>
+          <p class="soft">Роль — «мягкий напоминатель без давления, маленькими шагами».
+          Вход: список зон (шкафы/ящики/цифровые папки), дата последнего разбора.
+          Шаги: 1) раз в 2 недели предложить одну зону; 2) дать простой чек-лист на
+          15-30 минут; 3) зафиксировать дату выполнения; 4) раз в квартал — сводка,
+          что разобрано, что осталось.</p>
+          <p class="field-label">Ресурсы</p>
+          <div class="res-row">
+            <span class="res-chip">📚 <b>«Магическая уборка», Мари Кондо</b> — принцип разбора по категориям небольшими шагами</span>
+          </div>
+          <p class="field-label">Ожидаемый эффект</p>
+          <p class="mono soft">Беспорядок перестаёт быть невидимой задачей «когда-нибудь» — появляется видимый прогресс по зонам</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">4</span>
+      <div class="stop-head"><h2>Классификация целей</h2></div>
+      <div class="class-row">
+        <div class="class-box support">
+          <h4>Поддерживающие</h4>
+          <ul>
+            <li>Цель #1 — Регулярная сверка план/факт (держит систему честной каждые
+            2 недели, а не раз в 4 месяца).</li>
+          </ul>
+        </div>
+        <div class="class-box growth">
+          <h4>Рост / экзамен</h4>
+          <ul>
+            <li>Цель #2 — Восстановленный почасовой распорядок (структурное
+            пересоздание того, что было разрушено — новый уровень, а не поддержание
+            текущего состояния).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="stop">
+      <span class="dot">5</span>
+      <div class="stop-head"><h2>Roadmap</h2></div>
+      <div class="waves">
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 1 · 1–2 недели</span>
+          <h4>Быстрые победы</h4>
+          <ul>
+            <li>Агент #1 строит первую версию почасового расписания на основе текущих
+            целей ЯВД.</li>
+            <li>Агент #3 предлагает первую зону для разбора (например, переполненный
+            отдел шкафа).</li>
+          </ul>
+        </div>
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 2 · 3–8 недель</span>
+          <h4>Основа</h4>
+          <ul>
+            <li>Агент #2 запускает регулярную сверку план/факт раз в 2 недели.</li>
+            <li>Расписание от Агента #1 проходит первую пересборку под реальную
+            практику.</li>
+            <li>Разбор зон продолжается по одной каждые 2 недели.</li>
+          </ul>
+        </div>
+        <div class="wave">
+          <span class="wave-eyebrow">Волна 3 · до 4 месяцев</span>
+          <h4>Масштаб</h4>
+          <ul>
+            <li>Почасовой распорядок соблюдается устойчиво — Цель #2 достигнута.</li>
+            <li>Накопленный лог Агента #2 показывает, что расхождения ловятся за
+            недели, а не месяцы.</li>
+            <li>При появлении агентов в других сферах — их данные подключаются к
+            общей сверке через git.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="first-step">
+    <h3>⚡ Первый шаг сегодня</h3>
+    <p>Открой чат с ассистентом и запусти «Конструктора дня» с текущим списком целей и
+    регулярных задач из ЯВД. Результат — черновое почасовое расписание на неделю — будет
+    виден за 1–2 часа.</p>
+    <div class="prompt-box">Ты — мой личный тайм-архитектор.
+
+Вот мои регулярные дела и цели на этот триместр (перечисляю по сферам жизни):
+[вставить список целей и повторяющихся задач из ЯВД]
+
+Моё утреннее окно — с 5:00 (отбой в 22:00), плюс есть вечернее время в будни.
+Раньше всё пытался запихнуть в одно "магическое утро" и оно рассыпалось.
+
+Построй расписание на ближайшую неделю:
+- распредели задачи по разным дням недели, а не все в один день
+- для каждого дня укажи конкретные часы и что именно делать
+- начни с щадящей нагрузки, чтобы расписание реально выполнялось, а не
+  выглядело идеально на бумаге
+- в конце дай короткий шаблон, который я смогу перенести в свой ЯВД</div>
+  </div>
+
+  <footer>
+    <span>Интервью по сфере «Система и порядок» · 2026.09</span>
+    <span>Полная расшифровка — sistema-i-poryadok.md</span>
+  </footer>
+
+</div>
