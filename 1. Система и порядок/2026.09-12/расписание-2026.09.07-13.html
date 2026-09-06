@@ -1,0 +1,360 @@
+<title>Расписание недели 37</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#F6F2EA;
+    --surface:#FFFFFF;
+    --surface-2:#ECE4D4;
+    --ink:#28241C;
+    --ink-soft:#655D4C;
+    --ink-faint:#948A74;
+    --accent:#2F5D56;
+    --accent-ink:#1D3E39;
+    --accent-soft:#DEEAE6;
+    --border:#E2D9C4;
+    --shadow: 0 1px 2px rgba(40,36,28,.05), 0 10px 26px -14px rgba(40,36,28,.22);
+
+    --c-sistema:#8A6A3E;     --c-sistema-soft:#F0E6D2;
+    --c-finansy:#B8901A;     --c-finansy-soft:#F5E9C6;
+    --c-zdorovie:#3E7A4C;    --c-zdorovie-soft:#DCEEDF;
+    --c-obshenie:#B34C39;    --c-obshenie-soft:#F5DFD8;
+    --c-obrazovanie:#3A62A0; --c-obrazovanie-soft:#DCE5F4;
+    --c-samorealizacia:#6E6656; --c-samorealizacia-soft:#E7E2D5;
+    --c-duhovnost:#75539E;   --c-duhovnost-soft:#E9E0F2;
+    --c-yarkost:#2E8A9E;     --c-yarkost-soft:#D9EEF2;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#181510;
+      --surface:#221E17;
+      --surface-2:#2C2619;
+      --ink:#F0EAdc;
+      --ink-soft:#C2B79F;
+      --ink-faint:#8C8267;
+      --accent:#7FBDAF;
+      --accent-ink:#B9E0D5;
+      --accent-soft:#20342F;
+      --border:#3A3222;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 14px 32px -16px rgba(0,0,0,.6);
+
+      --c-sistema:#D3AE73;     --c-sistema-soft:#3A2E17;
+      --c-finansy:#E4C25E;     --c-finansy-soft:#3B3013;
+      --c-zdorovie:#7FC291;    --c-zdorovie-soft:#1E3324;
+      --c-obshenie:#E08A72;    --c-obshenie-soft:#3B241C;
+      --c-obrazovanie:#8FADDE; --c-obrazovanie-soft:#22304A;
+      --c-samorealizacia:#B3AB93; --c-samorealizacia-soft:#332F23;
+      --c-duhovnost:#C4A8E3;   --c-duhovnost-soft:#312444;
+      --c-yarkost:#7FCEDE;     --c-yarkost-soft:#1B3438;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#181510;
+    --surface:#221E17;
+    --surface-2:#2C2619;
+    --ink:#F0EAdc;
+    --ink-soft:#C2B79F;
+    --ink-faint:#8C8267;
+    --accent:#7FBDAF;
+    --accent-ink:#B9E0D5;
+    --accent-soft:#20342F;
+    --border:#3A3222;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 14px 32px -16px rgba(0,0,0,.6);
+
+    --c-sistema:#D3AE73;     --c-sistema-soft:#3A2E17;
+    --c-finansy:#E4C25E;     --c-finansy-soft:#3B3013;
+    --c-zdorovie:#7FC291;    --c-zdorovie-soft:#1E3324;
+    --c-obshenie:#E08A72;    --c-obshenie-soft:#3B241C;
+    --c-obrazovanie:#8FADDE; --c-obrazovanie-soft:#22304A;
+    --c-samorealizacia:#B3AB93; --c-samorealizacia-soft:#332F23;
+    --c-duhovnost:#C4A8E3;   --c-duhovnost-soft:#312444;
+    --c-yarkost:#7FCEDE;     --c-yarkost-soft:#1B3438;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Public Sans', system-ui, -apple-system, sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,.eyebrow{ font-family:'Bricolage Grotesque', system-ui, sans-serif; text-wrap:balance; }
+  .mono, td.t, th.t{ font-family:'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:48px 24px 80px; }
+
+  header{ margin-bottom:28px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--accent-ink); font-weight:600; margin-bottom:6px;
+  }
+  .eyebrow::before{ content:"◆"; color:var(--accent); font-size:9px; }
+  h1{ font-size:clamp(26px,3.6vw,36px); font-weight:800; margin:0 0 6px; letter-spacing:-.01em; }
+  .sub{ color:var(--ink-soft); font-size:15px; max-width:680px; margin:0; }
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; padding:14px 16px;
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    box-shadow:var(--shadow);
+  }
+  .legend-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint);
+    font-weight:600; display:flex; align-items:center; margin-right:4px;
+  }
+  .chip{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:12.5px; font-weight:600; padding:4px 10px 4px 8px; border-radius:999px;
+  }
+  .chip .dot{ width:8px; height:8px; border-radius:50%; flex:none; }
+
+  .grid{
+    display:grid; grid-template-columns:1fr; gap:18px; margin-top:28px;
+  }
+  @media(min-width:820px){ .grid{ grid-template-columns:1fr 1fr; } }
+
+  .day{
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column;
+  }
+  .day-head{
+    padding:16px 18px 14px; border-bottom:1px solid var(--border);
+    display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+  }
+  .day-head h2{ font-size:19px; margin:0 0 3px; font-weight:700; }
+  .day-head .date{ font-size:12.5px; color:var(--ink-faint); }
+  .day-head .tags{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+  .badge{
+    font-size:11px; font-weight:600; padding:3px 9px; border-radius:999px;
+    background:var(--surface-2); color:var(--ink-soft); white-space:nowrap;
+  }
+
+  table{ border-collapse:collapse; width:100%; font-size:13.5px; }
+  .day-body{ overflow-x:auto; }
+  th{
+    text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink-faint); font-weight:600; padding:10px 18px 8px; border-bottom:1px solid var(--border);
+  }
+  td{ padding:8px 18px; border-bottom:1px solid var(--border); vertical-align:top; }
+  tr:last-child td{ border-bottom:none; }
+  td.t{ white-space:nowrap; color:var(--ink-soft); font-size:12.5px; width:1%; padding-right:14px; }
+  td.a{ color:var(--ink); }
+  tr.hi td.a{ font-weight:700; }
+  tr.hi{ position:relative; }
+  tr.hi td.t{ font-weight:700; color:var(--ink); }
+  tr.hi td.a::before{
+    content:""; display:inline-block; width:6px; height:6px; border-radius:50%;
+    margin-right:7px; vertical-align:middle; margin-top:-2px;
+  }
+  tr.c-sistema td.a::before{ background:var(--c-sistema); }
+  tr.c-finansy td.a::before{ background:var(--c-finansy); }
+  tr.c-zdorovie td.a::before{ background:var(--c-zdorovie); }
+  tr.c-obshenie td.a::before{ background:var(--c-obshenie); }
+  tr.c-obrazovanie td.a::before{ background:var(--c-obrazovanie); }
+  tr.c-samorealizacia td.a::before{ background:var(--c-samorealizacia); }
+  tr.c-duhovnost td.a::before{ background:var(--c-duhovnost); }
+  tr.c-yarkost td.a::before{ background:var(--c-yarkost); }
+
+  .note{
+    padding:11px 18px 15px; font-size:12.5px; color:var(--ink-faint); border-top:1px solid var(--border);
+  }
+
+  footer{
+    margin-top:44px; padding-top:18px; border-top:1px solid var(--border);
+    color:var(--ink-faint); font-size:12.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .day{ animation: rise .45s ease both; }
+    .day:nth-of-type(2){ animation-delay:.04s; }
+    .day:nth-of-type(3){ animation-delay:.08s; }
+    .day:nth-of-type(4){ animation-delay:.12s; }
+    .day:nth-of-type(5){ animation-delay:.16s; }
+    .day:nth-of-type(6){ animation-delay:.2s; }
+    .day:nth-of-type(7){ animation-delay:.24s; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:none; } }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Конструктор дня · Артём Соколов</span>
+    <h1>Расписание недели 37</h1>
+    <p class="sub">07–13 сентября 2026 — первая рабочая неделя триместра. Вводные дни
+      (Пн–Чт): резерв под постановку целей и декомпозицию, а не выполнение уже
+      поставленных целей. С Пт — полноценный триместр.</p>
+
+    <div class="legend">
+      <span class="legend-label">Цвет дня → сфера</span>
+      <span class="chip" style="background:var(--c-sistema-soft); color:var(--c-sistema)"><span class="dot" style="background:var(--c-sistema)"></span>Система</span>
+      <span class="chip" style="background:var(--c-finansy-soft); color:var(--c-finansy)"><span class="dot" style="background:var(--c-finansy)"></span>Финансы</span>
+      <span class="chip" style="background:var(--c-zdorovie-soft); color:var(--c-zdorovie)"><span class="dot" style="background:var(--c-zdorovie)"></span>Здоровье</span>
+      <span class="chip" style="background:var(--c-obshenie-soft); color:var(--c-obshenie)"><span class="dot" style="background:var(--c-obshenie)"></span>Общение</span>
+      <span class="chip" style="background:var(--c-obrazovanie-soft); color:var(--c-obrazovanie)"><span class="dot" style="background:var(--c-obrazovanie)"></span>Образование</span>
+      <span class="chip" style="background:var(--c-samorealizacia-soft); color:var(--c-samorealizacia)"><span class="dot" style="background:var(--c-samorealizacia)"></span>Самореализация</span>
+      <span class="chip" style="background:var(--c-duhovnost-soft); color:var(--c-duhovnost)"><span class="dot" style="background:var(--c-duhovnost)"></span>Духовность</span>
+      <span class="chip" style="background:var(--c-yarkost-soft); color:var(--c-yarkost)"><span class="dot" style="background:var(--c-yarkost)"></span>Яркость</span>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <div class="day">
+      <div class="day-head">
+        <div><h2>Понедельник</h2><div class="date">07.09 · отдых от тренировок</div></div>
+        <div class="tags"><span class="badge" style="background:var(--c-obrazovanie-soft); color:var(--c-obrazovanie)">Образование</span></div>
+      </div>
+      <div class="day-body"><table>
+        <tr><td class="t">5.30–5.35</td><td class="a">Подъём</td></tr>
+        <tr><td class="t">5.35–5.50</td><td class="a">Медитация</td></tr>
+        <tr><td class="t">5.50–6.20</td><td class="a">Душ</td></tr>
+        <tr><td class="t">6.20–6.50</td><td class="a">Трейдинг</td></tr>
+        <tr><td class="t">6.50–7.20</td><td class="a">План дня</td></tr>
+        <tr><td class="t">7.20–8.00</td><td class="a">Завтрак</td></tr>
+        <tr class="hi c-obrazovanie"><td class="t">8.00–10.00</td><td class="a">Резерв (цели: Образование)</td></tr>
+        <tr><td class="t">10.00–19.00</td><td class="a">Работа</td></tr>
+        <tr><td class="t">19.00–20.00</td><td class="a">Проект</td></tr>
+        <tr><td class="t">20.00–20.40</td><td class="a">Ужин</td></tr>
+        <tr><td class="t">20.40–21.30</td><td class="a">Резерв</td></tr>
+      </table></div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div><h2>Вторник</h2><div class="date">08.09 · силовая — Legs</div></div>
+        <div class="tags"><span class="badge" style="background:var(--c-finansy-soft); color:var(--c-finansy)">Финансы</span></div>
+      </div>
+      <div class="day-body"><table>
+        <tr><td class="t">5.30–5.35</td><td class="a">Подъём</td></tr>
+        <tr><td class="t">5.35–5.50</td><td class="a">Медитация</td></tr>
+        <tr><td class="t">5.50–6.50</td><td class="a">Спорт — силовая, Legs</td></tr>
+        <tr><td class="t">6.50–7.20</td><td class="a">Душ</td></tr>
+        <tr><td class="t">7.20–7.50</td><td class="a">Трейдинг</td></tr>
+        <tr><td class="t">7.50–8.20</td><td class="a">План дня</td></tr>
+        <tr><td class="t">8.20–9.00</td><td class="a">Завтрак</td></tr>
+        <tr class="hi c-finansy"><td class="t">9.00–10.00</td><td class="a">Резерв (цели: Финансы)</td></tr>
+        <tr><td class="t">10.00–19.00</td><td class="a">Работа</td></tr>
+        <tr><td class="t">19.00–20.00</td><td class="a">Проект</td></tr>
+        <tr><td class="t">20.00–20.40</td><td class="a">Ужин</td></tr>
+        <tr><td class="t">20.40–21.30</td><td class="a">Резерв</td></tr>
+      </table></div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div><h2>Среда</h2><div class="date">09.09 · йога</div></div>
+        <div class="tags"><span class="badge" style="background:var(--c-yarkost-soft); color:var(--c-yarkost)">Яркость</span></div>
+      </div>
+      <div class="day-body"><table>
+        <tr><td class="t">5.30–5.35</td><td class="a">Подъём</td></tr>
+        <tr><td class="t">5.35–5.50</td><td class="a">Медитация</td></tr>
+        <tr><td class="t">5.50–6.40</td><td class="a">Спорт — йога</td></tr>
+        <tr><td class="t">6.40–7.10</td><td class="a">Душ</td></tr>
+        <tr><td class="t">7.10–7.40</td><td class="a">Трейдинг</td></tr>
+        <tr><td class="t">7.40–8.10</td><td class="a">План дня</td></tr>
+        <tr><td class="t">8.10–8.50</td><td class="a">Завтрак</td></tr>
+        <tr class="hi c-sistema"><td class="t">8.50–10.00</td><td class="a">Декомпозиция целей</td></tr>
+        <tr><td class="t">10.00–19.00</td><td class="a">Работа</td></tr>
+        <tr><td class="t">19.00–20.00</td><td class="a">Проект</td></tr>
+        <tr><td class="t">20.00–20.40</td><td class="a">Ужин</td></tr>
+        <tr class="hi c-yarkost"><td class="t">20.40–21.10</td><td class="a">Декомпозиция / Яркость</td></tr>
+        <tr><td class="t">21.10–21.30</td><td class="a">Резерв</td></tr>
+      </table></div>
+      <div class="note">Приоритет дня — декомпозиция целей, а не цвет дня (Яркость).</div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div><h2>Четверг</h2><div class="date">10.09 · силовая — Back+Biceps</div></div>
+        <div class="tags"><span class="badge" style="background:var(--c-obshenie-soft); color:var(--c-obshenie)">Общение</span></div>
+      </div>
+      <div class="day-body"><table>
+        <tr><td class="t">5.30–5.35</td><td class="a">Подъём</td></tr>
+        <tr><td class="t">5.35–5.50</td><td class="a">Медитация</td></tr>
+        <tr><td class="t">5.50–6.50</td><td class="a">Спорт — силовая, Back+Biceps</td></tr>
+        <tr><td class="t">6.50–7.20</td><td class="a">Душ</td></tr>
+        <tr><td class="t">7.20–7.50</td><td class="a">Трейдинг</td></tr>
+        <tr><td class="t">7.50–8.20</td><td class="a">План дня</td></tr>
+        <tr><td class="t">8.20–9.00</td><td class="a">Завтрак</td></tr>
+        <tr class="hi c-sistema"><td class="t">9.00–10.00</td><td class="a">Декомпозиция / зачётка</td></tr>
+        <tr><td class="t">10.00–19.00</td><td class="a">Работа</td></tr>
+        <tr><td class="t">19.00–20.00</td><td class="a">Проект</td></tr>
+        <tr><td class="t">20.00–20.40</td><td class="a">Ужин</td></tr>
+        <tr class="hi c-obshenie"><td class="t">20.40–21.10</td><td class="a">Коммуникация</td></tr>
+        <tr><td class="t">21.10–21.30</td><td class="a">Резерв</td></tr>
+      </table></div>
+      <div class="note">Финализация декомпозиции и выбор целей в зачётку — приоритет дня.</div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div><h2>Пятница</h2><div class="date">11.09 · йога · старт триместра</div></div>
+        <div class="tags"><span class="badge" style="background:var(--c-sistema-soft); color:var(--c-sistema)">Система</span></div>
+      </div>
+      <div class="day-body"><table>
+        <tr><td class="t">5.30–5.35</td><td class="a">Подъём</td></tr>
+        <tr><td class="t">5.35–5.50</td><td class="a">Медитация</td></tr>
+        <tr><td class="t">5.50–6.40</td><td class="a">Спорт — йога</td></tr>
+        <tr><td class="t">6.40–7.10</td><td class="a">Душ</td></tr>
+        <tr><td class="t">7.10–7.40</td><td class="a">Трейдинг</td></tr>
+        <tr><td class="t">7.40–8.10</td><td class="a">План дня</td></tr>
+        <tr><td class="t">8.10–8.50</td><td class="a">Завтрак</td></tr>
+        <tr class="hi c-sistema"><td class="t">8.50–9.50</td><td class="a">Система</td></tr>
+        <tr><td class="t">10.00–19.00</td><td class="a">Работа</td></tr>
+        <tr><td class="t">19.00–20.00</td><td class="a">Проект</td></tr>
+        <tr><td class="t">20.00–20.40</td><td class="a">Ужин</td></tr>
+        <tr class="hi c-finansy"><td class="t">20.40–21.20</td><td class="a">Фин. итоги недели</td></tr>
+        <tr><td class="t">21.20–21.30</td><td class="a">Резерв</td></tr>
+      </table></div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div><h2>Суббота</h2><div class="date">12.09 · силовая — Chest+Triceps · подъём 6:30</div></div>
+        <div class="tags"><span class="badge" style="background:var(--c-obrazovanie-soft); color:var(--c-obrazovanie)">Образование</span></div>
+      </div>
+      <div class="day-body"><table>
+        <tr><td class="t">6.30–6.35</td><td class="a">Подъём</td></tr>
+        <tr><td class="t">6.35–6.50</td><td class="a">Медитация</td></tr>
+        <tr><td class="t">6.50–7.50</td><td class="a">Спорт — силовая, Chest+Triceps</td></tr>
+        <tr><td class="t">7.50–8.20</td><td class="a">Душ</td></tr>
+        <tr><td class="t">8.20–9.20</td><td class="a">Трейдинг (60 мин)</td></tr>
+        <tr><td class="t">9.20–9.50</td><td class="a">План дня</td></tr>
+        <tr><td class="t">9.50–10.30</td><td class="a">Завтрак</td></tr>
+        <tr><td class="t">10.30–12.00</td><td class="a">Резерв / сборы</td></tr>
+        <tr class="hi c-yarkost"><td class="t">12.00–21.00</td><td class="a">Вылазка</td></tr>
+        <tr><td class="t">21.00–21.30</td><td class="a">Резерв</td></tr>
+      </table></div>
+      <div class="note">Первая вылазка цикла «раз в 2 недели». Уборка и час «Образования» — сдвинуты на следующую неделю, время вылазки в приоритете.</div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div><h2>Воскресенье</h2><div class="date">13.09 · йога · подъём 6:30</div></div>
+        <div class="tags"><span class="badge" style="background:var(--c-duhovnost-soft); color:var(--c-duhovnost)">Духовность</span></div>
+      </div>
+      <div class="day-body"><table>
+        <tr><td class="t">6.30–6.35</td><td class="a">Подъём</td></tr>
+        <tr><td class="t">6.35–6.50</td><td class="a">Медитация</td></tr>
+        <tr><td class="t">6.50–7.40</td><td class="a">Спорт — йога</td></tr>
+        <tr><td class="t">7.40–8.10</td><td class="a">Душ</td></tr>
+        <tr><td class="t">8.10–9.10</td><td class="a">Трейдинг (60 мин)</td></tr>
+        <tr><td class="t">9.10–9.40</td><td class="a">План дня</td></tr>
+        <tr><td class="t">9.40–10.20</td><td class="a">Завтрак</td></tr>
+        <tr class="hi c-samorealizacia"><td class="t">10.20–13.20</td><td class="a">Проект — спринт, Бонды (3 ч)</td></tr>
+        <tr><td class="t">13.20–13.50</td><td class="a">Обед</td></tr>
+        <tr><td class="t">13.50–15.50</td><td class="a">Проект (другие приоритетные)</td></tr>
+        <tr class="hi c-duhovnost"><td class="t">15.50–16.50</td><td class="a">Духовность</td></tr>
+        <tr class="hi c-sistema"><td class="t">16.50–17.50</td><td class="a">План следующей недели</td></tr>
+        <tr><td class="t">17.50–20.00</td><td class="a">Резерв</td></tr>
+        <tr><td class="t">20.00–20.40</td><td class="a">Ужин</td></tr>
+        <tr><td class="t">20.40–21.30</td><td class="a">Резерв</td></tr>
+      </table></div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Артём Соколов · «Конструктор дня» · сфера «Система и порядок»</span>
+    <span>Черновик — полный план в недельные-планы.md</span>
+  </footer>
+</div>
