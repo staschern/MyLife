@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Финансовый план 2026 — полная версия</title>
+<style>
+  :root{
+    --bg:#faf8f5; --panel:#ffffff; --ink:#1f2328; --sub:#5b6168; --line:#e7e2da;
+    --accent:#8a5a3c; --accent2:#2f6f5e; --warn:#a4452e; --good:#2f6f5e; --chip:#f1ece3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:ui-serif,Georgia,'Times New Roman',serif;line-height:1.55;}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 80px}
+  header.hero{padding:40px 0 24px;border-bottom:3px solid var(--accent)}
+  header.hero h1{font-size:2.1rem;margin:0 0 6px;letter-spacing:-.01em}
+  header.hero .meta{color:var(--sub);font-size:.95rem}
+  .status-badge{display:inline-block;margin-top:14px;padding:6px 14px;border-radius:20px;
+    background:var(--chip);color:var(--accent);font-weight:600;font-size:.9rem;border:1px solid var(--line)}
+  nav.toc{margin:28px 0;padding:18px 22px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+  nav.toc h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin:0 0 10px}
+  nav.toc ol{margin:0;padding-left:20px;columns:2;gap:24px}
+  nav.toc li{margin-bottom:6px}
+  nav.toc a{color:var(--accent);text-decoration:none}
+  nav.toc a:hover{text-decoration:underline}
+  section{margin:44px 0}
+  section>h2{font-size:1.5rem;border-bottom:2px solid var(--line);padding-bottom:10px;margin-bottom:18px;
+    display:flex;align-items:baseline;gap:10px}
+  section>h2 .num{color:var(--accent);font-weight:700}
+  h3{font-size:1.15rem;margin:28px 0 10px;color:var(--ink)}
+  h4{font-size:1rem;margin:20px 0 8px;color:var(--accent)}
+  p{margin:10px 0}
+  .lead{font-size:1.05rem;color:var(--sub)}
+  table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:.92rem;background:var(--panel)}
+  caption{caption-side:top;text-align:left;font-weight:600;margin-bottom:6px;color:var(--ink)}
+  th,td{padding:7px 10px;border:1px solid var(--line);text-align:right}
+  th{background:var(--chip);font-weight:600;text-align:center}
+  td:first-child,th:first-child{text-align:left}
+  tr:nth-child(even) td{background:#fcfbf9}
+  .num-cell{font-variant-numeric:tabular-nums}
+  .pos{color:var(--good);font-weight:600}
+  .neg{color:var(--warn);font-weight:600}
+  .callout{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:6px;padding:14px 18px;margin:16px 0}
+  .callout.warn{border-left-color:var(--warn)}
+  .callout.good{border-left-color:var(--good)}
+  .callout h4{margin-top:0}
+  .open-q{background:#fff7ec;border:1px dashed #c9a36a;border-radius:8px;padding:12px 16px;margin:14px 0;font-size:.95rem}
+  .open-q::before{content:"⟡ Открытый вопрос — ";font-weight:700;color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+  .chip{background:var(--chip);border:1px solid var(--line);border-radius:16px;padding:4px 12px;font-size:.85rem}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:760px){.grid2{grid-template-columns:1fr}nav.toc ol{columns:1}}
+  .small{font-size:.85rem;color:var(--sub)}
+  .divider{height:1px;background:var(--line);margin:28px 0}
+  .backlog-list{padding-left:20px}
+  .backlog-list li{margin-bottom:8px}
+  footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:var(--sub);font-size:.85rem}
+  .agent-sig{font-style:italic;color:var(--accent);margin-top:6px}
+  .sources{font-size:.85rem;color:var(--sub)}
+  .sources a{color:var(--accent)}
+  code{background:var(--chip);padding:1px 6px;border-radius:4px;font-size:.88em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Финансовый план — полная версия</h1>
+  <div class="meta">Собран 07.10.2026 · Агент «Макро-стратег» (Антон Беляков), сфера «Финансы и достаток»</div>
+  <div class="status-badge">Все 7 разделов закрыты · следующая сверка — январь 2027 (не позже 01.02.2027)</div>
+</header>
+
+<nav class="toc">
+  <h2>Разделы</h2>
+  <ol>
+    <li><a href="#s1">Точка А — текущее состояние</a></li>
+    <li><a href="#s2">Уточнённые цели (6 целей)</a></li>
+    <li><a href="#s3">Стратегия и инструменты — ИИС</a></li>
+    <li><a href="#s4">Бюджет и каскадная формула</a></li>
+    <li><a href="#s4b">Накопительные счета (9%/год)</a></li>
+    <li><a href="#s4c">Ориентир по целям 1-6 (ближайшие периоды)</a></li>
+    <li><a href="#s5">Распределение активов по целям</a></li>
+    <li><a href="#s6">Страхование</a></li>
+    <li><a href="#s7">Ритм пересмотра</a></li>
+    <li><a href="#open">Все открытые вопросы — сводка</a></li>
+  </ol>
+</nav>
+
+<section id="s1">
+  <h2><span class="num">1.</span> Точка А — текущее состояние (07.10.2026)</h2>
+  <p class="lead">Полный срез капитала по всем 17 инвестиционным портфелям/счетам + накопительно-расчётные счета.</p>
+
+  <table>
+    <caption>Капитал, всего</caption>
+    <tr><th>Статья</th><th>₽</th></tr>
+    <tr><td>Инвестиционные портфели (17, по 4 целям)</td><td class="num-cell">≈2 700 519</td></tr>
+    <tr><td>⤷ Цель #1 (пенсия)</td><td class="num-cell">≈2 367 047</td></tr>
+    <tr><td>⤷ Цель #2 (недвижимость)</td><td class="num-cell">93 139,50</td></tr>
+    <tr><td>⤷ Цель #3 (крупные покупки / «Мечта»)</td><td class="num-cell">195 424,36</td></tr>
+    <tr><td>⤷ Цель #4 (защитный портфель)</td><td class="num-cell">44 908,46</td></tr>
+    <tr><td>Накопительно-расчётные счета (вкл. Резервный фонд)</td><td class="num-cell">484 242,50</td></tr>
+    <tr><td><strong>Капитал всего</strong></td><td class="num-cell"><strong>≈3 184 761</strong></td></tr>
+  </table>
+
+  <div class="callout warn">
+    <h4>Заблокировано/заморожено (включено в сумму, не ликвидно сейчас)</h4>
+    <p>≈165 133 ₽ — крипто-стартап (≈108 656 ₽), 2 замороженных брокерских счёта (≈4 190 ₽),
+    заблокированные иностранные бумаги внутри ИИС (≈52 288 ₽). Образовательный бизнес-стартап
+    (≈50 550 ₽) ликвиден, в блокировку не входит.</p>
+  </div>
+
+  <p class="small">Не включено в капитал: долг Ирины (150 тыс ₽, частично возвращён).</p>
+</section>
+
+<section id="s2">
+  <h2><span class="num">2.</span> Уточнённые цели</h2>
+  <p class="lead">Шесть целей, приоритет пользователя. Доходность реальная (сверх инфляции) — везде
+  показан диапазон, не выбранная точка (см. раздел 4.9).</p>
+
+  <div class="grid2">
+    <div class="callout">
+      <h4>Цель #1 — пенсия</h4>
+      <p><strong>100 млн ₽</strong> к 60/65 годам (горизонт ≈21/26 лет от сегодня).
+      Ставка 7% (базовый) / 9% (оптимистичный) реальных годовых.</p>
+    </div>
+    <div class="callout">
+      <h4>Цель #2 — недвижимость</h4>
+      <p><strong>25 млн ₽</strong> к 55 годам, альтернатива — продолжать до 65.
+      Ставка 7%/год. Финансирование — 5 000 ₽/неделю, непрерывно, в рублях.</p>
+    </div>
+    <div class="callout">
+      <h4>Цель #3 — крупные покупки («Мечта»)</h4>
+      <p><strong>4 млн ₽</strong> ориентировочно через 5 лет, не жёсткий срок — портфель
+      продолжает работать и дальше. Ставка 4% / 5%.</p>
+    </div>
+    <div class="callout">
+      <h4>Цель #4 — защитная («универсальная страховка»)</h4>
+      <p>Резервный фонд + Страховой инвестиционный счёт как единый пул. Без изъятия
+      сверх 450 тыс ₽ цели — кросс-целевой резерв при нехватке в целях 1-3.
+      Ставка 2%/год (намеренно низкая, низковолатильный профиль).</p>
+    </div>
+    <div class="callout">
+      <h4>Цель #5 — Семья</h4>
+      <p>Без жёсткой суммы/срока, пополняется по каскадной формуле бюджета
+      (3 565,99 ₽/мес), минус 30 000 ₽/год на подарки (ноябрь/февраль).
+      9% годовых, ежемесячно. Капа 100 000 ₽ (раздел 4.9).</p>
+    </div>
+    <div class="callout">
+      <h4>Цель #6 — Детский</h4>
+      <p>Без суммы/срока (детей пока нет), пополняется по каскадной формуле
+      (1 501,47 ₽/мес), без расходов. 9% годовых. Капа 100 000 ₽.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s3">
+  <h2><span class="num">3.</span> Стратегия и инструменты — ИИС</h2>
+  <p>Три счёта ИИС-3, по одному на канал финансирования:</p>
+  <table>
+    <caption>Структура ИИС и прогноз на закрытие (доходность 7%/год, базовый сценарий)</caption>
+    <tr><th>Счёт</th><th>Назначение</th><th>Горизонт</th><th>Прогноз на закрытие</th><th>Налог</th></tr>
+    <tr><td>ИИС #1</td><td>Акции, Цель #1 (без новых взносов)</td><td>65 лет (≈25,6 года)</td>
+      <td class="num-cell">≈5 335 000 ₽</td><td class="num-cell">0 ₽</td></tr>
+    <tr><td>ИИС #2</td><td>Облигации, Цель #1</td><td>64 года (≈24,6 года)</td>
+      <td class="num-cell">≈15 744 000 ₽</td><td class="num-cell">0 ₽</td></tr>
+    <tr><td>ИИС #3</td><td>Недвижимость, Цель #2</td><td>63 года (≈23,6 года)</td>
+      <td class="num-cell">≈14 851 000 ₽</td><td class="num-cell">0 ₽</td></tr>
+  </table>
+  <p class="small">Налог 0 ₽ по всем трём счетам даже при оптимистичных 9%/год — прибыль на
+  порядок ниже лимита освобождения (30 млн ₽ на счёт). Вычет на взнос (до 400 тыс ₽/год,
+  ≈52 тыс ₽ возврата) эффективнее направлять сфокусированно в одну цель, чем размазывать.</p>
+  <div class="open-q">Открытие 2 новых ИИС-3 (ИИС #2, #3) — в бэклоге до конца 2026 года,
+  требуется сравнение брокеров разных банков. Крайний срок по действующим правилам
+  минимального срока владения — до 31.12.2026.</div>
+</section>
+
+<section id="s4">
+  <h2><span class="num">4.</span> Бюджет и каскадная формула</h2>
+  <p class="lead">Средняя ЗП — 160 003 ₽/мес. Вся сумма распределяется по трёхуровневой
+  каскадной формуле на ближайшем пятничном подведении итогов.</p>
+
+  <table>
+    <caption>Уровень 1 — три части дохода</caption>
+    <tr><th>Часть</th><th>Доля</th><th>Сумма</th></tr>
+    <tr><td>Важная</td><td>30%</td><td class="num-cell">48 000,90 ₽</td></tr>
+    <tr><td>Накопительная</td><td>19%</td><td class="num-cell">30 400,57 ₽</td></tr>
+    <tr><td>Основная</td><td>51% (остаток)</td><td class="num-cell">81 601,53 ₽</td></tr>
+  </table>
+
+  <h3>Фазы инвестиционного потока</h3>
+  <p><strong>Фаза 1 (сейчас → 450 000 ₽ объединённого Резерва+Страхования):</strong>
+  поток Инвестфонд+Мечта+Недвижимость+ИИС (59 236,63 ₽/мес) делится 66,67% → Резерв,
+  33,33% → Облигации (Цель #1). Расчётное завершение — <strong>конец января 2027</strong>
+  (≈3,79 месяца от 07.10.2026).</p>
+  <p><strong>Фаза 2 (после 450 000 ₽):</strong> каждая ветка каскада течёт напрямую в
+  свою цель — модель «ветки каскада», подтверждена пользователем как финальная:</p>
+
+  <table>
+    <caption>Ветки каскада → цели (Фаза 2)</caption>
+    <tr><th>Ветка</th><th>→ Цель</th><th>₽/мес</th></tr>
+    <tr><td>Инвестфонд + ИИС</td><td>Цель #1</td><td class="num-cell">30 724,10</td></tr>
+    <tr><td>Недвижимость + доплата Резерва</td><td>Цель #2</td><td class="num-cell">21 666,67</td></tr>
+    <tr><td>Мечта + доплата «Приоритет»</td><td>Цель #3</td><td class="num-cell">21 666,67</td></tr>
+    <tr><td>Страхование</td><td>Цель #4</td><td class="num-cell">10 424,36</td></tr>
+  </table>
+
+  <div class="callout">
+    <h4>Разделение 450 000 ₽ на конец Фазы 1</h4>
+    <p>Подтверждённое правило (раздел 1.2): <strong>100 000 ₽</strong> остаётся на
+    накопительном счёте «Резервный фонд», остальные <strong>≈350 000 ₽</strong> уходят
+    на Страховой инвестиционный счёт (денежный рынок до 350 000 ₽, дальше — золото).
+    Разовый перелив в Страхование на момент перехода — ≈304 791 ₽ (с учётом
+    собственного роста счёта за Фазу 1).</p>
+  </div>
+
+  <div class="grid2">
+    <div class="callout good">
+      <h4>Счёт «Недвижимость» → Цель #2</h4>
+      <p>Приток Резерва: 11 620,53 ₽/мес (прямые доли каскада).<br>
+      Отток на доплату Цели #2: −7 410,40 ₽/мес.<br>
+      <strong>Чистый эффект: +4 210,13 ₽/мес</strong> — Резерв устойчив, растёт.</p>
+    </div>
+    <div class="callout warn">
+      <h4>Счёт «Приоритет» → Цель #3</h4>
+      <p>Приток по каскаду: 4 800,09 ₽/мес.<br>
+      Доплата на Цель #3: −7 410,40 ₽/мес.<br>
+      <strong>Чистый эффект: −2 610,31 ₽/мес</strong> — структурный дефицит. С учётом
+      9% на остаток счёт растёт до пика ≈60 000 ₽ к концу Фазы 1, затем снижается и
+      уходит в ноль примерно через 2,2-2,5 года, если не менять правило.</p>
+    </div>
+  </div>
+
+  <div class="open-q">Источник доплаты для Цели #3 (счёт «Приоритет») — плановый
+  ориентир, не жёсткое правило. По факту пользователь будет решать по ситуации.</div>
+</section>
+
+<section id="s4b">
+  <h2><span class="num">4.1</span> Накопительные счета — рост за 12 месяцев (9% годовых)</h2>
+  <p class="lead">Все 8 счетов — вклады в Тинькофф с начислением 9% годовых ежемесячно
+  (подтверждено пользователем). Таблица ниже — обновлённая версия с процентом,
+  применённым ко всем счетам (закрывает бэклог раздела 4.10).</p>
+
+  <table>
+    <caption>Накопительные счета, 07.10.2026 → +12 месяцев</caption>
+    <tr><th>Счёт</th><th>Сейчас</th><th>Через 12 мес</th><th>Изменение</th></tr>
+    <tr><td>Путешествие</td><td class="num-cell">11 321,54 ₽</td><td class="num-cell">120 451,13 ₽</td><td class="num-cell pos">+109 129,59 ₽</td></tr>
+    <tr><td>Бизнес</td><td class="num-cell">7 310,59 ₽</td><td class="num-cell">50 250,75 ₽</td><td class="num-cell pos">+42 940,16 ₽</td></tr>
+    <tr><td>Благотворительность</td><td class="num-cell">15 044,42 ₽</td><td class="num-cell">25 182,11 ₽</td><td class="num-cell pos">+10 137,69 ₽</td></tr>
+    <tr><td>Бюджет<sup>*</sup></td><td class="num-cell">54 081,51 ₽</td><td class="num-cell">222 099,56 ₽</td><td class="num-cell pos">+168 018,05 ₽</td></tr>
+    <tr><td>Семья</td><td class="num-cell">63 104,00 ₽</td><td class="num-cell">81 536,90 ₽</td><td class="num-cell pos">+18 432,90 ₽</td></tr>
+    <tr><td>Детский</td><td class="num-cell">33 177,56 ₽</td><td class="num-cell">55 069,61 ₽</td><td class="num-cell pos">+21 892,05 ₽</td></tr>
+    <tr><td>Фокус</td><td class="num-cell">8 241,96 ₽</td><td class="num-cell">65 354,28 ₽</td><td class="num-cell pos">+57 112,32 ₽</td></tr>
+    <tr><td>Приоритет</td><td class="num-cell">39 368,56 ₽</td><td class="num-cell">42 236,20 ₽</td><td class="num-cell pos">+2 867,64 ₽</td></tr>
+    <tr><td>Резервный фонд</td><td class="num-cell">171 582,11 ₽</td><td class="num-cell">≈140 738 ₽</td><td class="num-cell neg">−30 844 ₽</td></tr>
+  </table>
+  <p class="small"><sup>*</sup> Бюджет пересекает 200 000 ₽ уже на 11-м месяце (≈207 516 ₽) —
+  формально может сработать общее правило «переизбытка 200 000 ₽» (раздел 1.2: сверх 200к
+  на помеченном счёте 100к уходит на инвестиционный счёт). Применимость к Бюджету не
+  зафиксирована — открытый вопрос.</p>
+  <p class="small">Приоритет растёт в первый год (пик во время Фазы 1, затем снижение в Фазе 2)
+  благодаря процентам на пока ещё большой остаток — долгосрочно счёт всё равно структурно
+  дефицитный (см. раздел 4 выше) и уходит в ноль за пределами года 2.</p>
+</section>
+
+<section id="s4c">
+  <h2><span class="num">4.2</span> Ориентир по целям 1-6 — ближайшие периоды</h2>
+  <p class="lead">Прогнозные суммы на несколько контрольных точек вперёд — чтобы на
+  плановых и внеплановых сверках было видно отставание факта от плана и можно было
+  донести в отстающую цель. Фаза 1 → Фаза 2 — на 4-м месяце (округление 3,79 → 4).</p>
+
+  <table>
+    <caption>Цель #1 — пенсия (₽, при ставке 7% / 9%)</caption>
+    <tr><th>Горизонт</th><th>1 мес</th><th>2 мес</th><th>3 мес / Q1</th><th>Q2 (6 мес)</th><th>Q3 (9 мес)</th><th>Q4 / год 1</th><th>Год 2</th><th>Год 5</th><th>Год 10</th></tr>
+    <tr><td>r = 7%</td><td class="num-cell">2 400 600</td><td class="num-cell">2 434 349</td><td class="num-cell">2 468 295</td><td class="num-cell">2 593 347</td><td class="num-cell">2 731 707</td><td class="num-cell">2 872 502</td><td class="num-cell">3 460 906</td><td class="num-cell">5 493 857</td><td class="num-cell">9 987 857</td></tr>
+    <tr><td>r = 9%</td><td class="num-cell">2 404 545</td><td class="num-cell">2 442 325</td><td class="num-cell">2 480 388</td><td class="num-cell">2 618 338</td><td class="num-cell">2 770 559</td><td class="num-cell">2 926 230</td><td class="num-cell">3 585 015</td><td class="num-cell">5 955 894</td><td class="num-cell">11 642 368</td></tr>
+  </table>
+
+  <table>
+    <caption>Цель #2 — недвижимость (₽, 7%)</caption>
+    <tr><th>1 мес</th><th>2 мес</th><th>3 мес / Q1</th><th>Q2</th><th>Q3</th><th>Q4 / год 1</th><th>Год 2</th><th>Год 5</th><th>Год 10</th></tr>
+    <tr><td class="num-cell">137 812</td><td class="num-cell">160 283</td><td class="num-cell">182 885</td><td class="num-cell">251 484</td><td class="num-cell">321 290</td><td class="num-cell">392 326</td><td class="num-cell">689 193</td><td class="num-cell">1 714 876</td><td class="num-cell">3 982 231</td></tr>
+  </table>
+
+  <table>
+    <caption>Цель #3 — крупные покупки (₽, при ставке 4% / 5%)</caption>
+    <tr><th>Горизонт</th><th>1 мес</th><th>2 мес</th><th>3 мес / Q1</th><th>Q2</th><th>Q3</th><th>Q4 / год 1</th><th>Год 2</th><th>Год 5</th><th>Год 10</th></tr>
+    <tr><td>r = 4%</td><td class="num-cell">196 076</td><td class="num-cell">196 729</td><td class="num-cell">197 385</td><td class="num-cell">242 771</td><td class="num-cell">310 424</td><td class="num-cell">378 755</td><td class="num-cell">659 007</td><td class="num-cell">1 570 147</td><td class="num-cell">3 353 622</td></tr>
+    <tr><td>r = 5%</td><td class="num-cell">196 239</td><td class="num-cell">197 056</td><td class="num-cell">197 877</td><td class="num-cell">243 785</td><td class="num-cell">312 116</td><td class="num-cell">381 305</td><td class="num-cell">666 855</td><td class="num-cell">1 614 189</td><td class="num-cell">3 545 049</td></tr>
+  </table>
+
+  <table>
+    <caption>Цель #4 — страховка (₽, 2%, с переливом ≈304 791 ₽ на 4-м месяце)</caption>
+    <tr><th>1 мес</th><th>2 мес</th><th>3 мес / Q1</th><th>Q2</th><th>Q3</th><th>Q4 / год 1</th><th>Год 2</th><th>Год 5</th><th>Год 10</th></tr>
+    <tr><td class="num-cell">44 983</td><td class="num-cell">45 058</td><td class="num-cell">45 133</td><td class="num-cell">372 034</td><td class="num-cell">405 222</td><td class="num-cell">438 577</td><td class="num-cell">573 675</td><td class="num-cell">995 551</td><td class="num-cell">1 757 390</td></tr>
+  </table>
+
+  <table>
+    <caption>Цель #5 — Семья (₽, 9%, капа 100 000 на счёте + номинальный излишек)</caption>
+    <tr><th>Горизонт</th><th>1 мес</th><th>2 мес</th><th>3 мес / Q1</th><th>Q2</th><th>Q3</th><th>Q4 / год 1</th><th>Год 2</th><th>Год 5</th><th>Год 10</th></tr>
+    <tr><td>Счёт (капа 100к)</td><td class="num-cell">57 143</td><td class="num-cell">61 138</td><td class="num-cell">65 162</td><td class="num-cell">57 117</td><td class="num-cell">69 190</td><td class="num-cell">81 537</td><td class="num-cell">100 000</td><td class="num-cell">100 000</td><td class="num-cell">100 000</td></tr>
+    <tr><td>Излишек (номинал)</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">1 699</td><td class="num-cell">67 075</td><td class="num-cell">176 034</td></tr>
+    <tr><td><strong>Итого</strong></td><td class="num-cell"><strong>57 143</strong></td><td class="num-cell"><strong>61 138</strong></td><td class="num-cell"><strong>65 162</strong></td><td class="num-cell"><strong>57 117</strong></td><td class="num-cell"><strong>69 190</strong></td><td class="num-cell"><strong>81 537</strong></td><td class="num-cell"><strong>101 699</strong></td><td class="num-cell"><strong>167 075</strong></td><td class="num-cell"><strong>276 034</strong></td></tr>
+  </table>
+  <p class="small">Просадка на Q2 (месяц 6, апрель) — после двух расходов на подарки
+  (ноябрь −10 000 ₽, февраль −20 000 ₽), уже учтённых к этому моменту.</p>
+
+  <table>
+    <caption>Цель #6 — Детский (₽, 9%, капа 100 000 на счёте + номинальный излишек)</caption>
+    <tr><th>Горизонт</th><th>1 мес</th><th>2 мес</th><th>3 мес / Q1</th><th>Q2</th><th>Q3</th><th>Q4 / год 1</th><th>Год 2</th><th>Год 5</th><th>Год 10</th></tr>
+    <tr><td>Счёт (капа 100к)</td><td class="num-cell">34 928</td><td class="num-cell">36 691</td><td class="num-cell">38 468</td><td class="num-cell">43 878</td><td class="num-cell">49 411</td><td class="num-cell">55 070</td><td class="num-cell">79 015</td><td class="num-cell">100 000</td><td class="num-cell">100 000</td></tr>
+    <tr><td>Излишек (номинал)</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">0</td><td class="num-cell">59 215</td><td class="num-cell">194 304</td></tr>
+    <tr><td><strong>Итого</strong></td><td class="num-cell"><strong>34 928</strong></td><td class="num-cell"><strong>36 691</strong></td><td class="num-cell"><strong>38 468</strong></td><td class="num-cell"><strong>43 878</strong></td><td class="num-cell"><strong>49 411</strong></td><td class="num-cell"><strong>55 070</strong></td><td class="num-cell"><strong>79 015</strong></td><td class="num-cell"><strong>159 215</strong></td><td class="num-cell"><strong>294 304</strong></td></tr>
+  </table>
+
+  <div class="callout">
+    <h4>Как пользоваться этой таблицей</h4>
+    <p>На каждой плановой сверке (минимум — раз в триместр, раздел 7) сравнить факт по
+    каждому счёту/цели с ближайшей контрольной точкой выше. Заметное отставание —
+    повод для внепланового донесения именно в отстающую цель, а не равномерно по всем.</p>
+  </div>
+</section>
+
+<section id="s5">
+  <h2><span class="num">5.</span> Распределение активов по целям</h2>
+  <p class="lead">Отдельно по каждой цели — горизонты разные. Крипта закреплена только за
+  Целью #1 (подтверждено пользователем).</p>
+
+  <h3>Текущее состояние (07.10.2026)</h3>
+  <table>
+    <caption>Доли по классам активов, % от капитала цели</caption>
+    <tr><th>Класс</th><th>Цель #1</th><th>Цель #2</th><th>Цель #3</th><th>Цель #4</th></tr>
+    <tr><td>Акции РФ</td><td class="num-cell">33,7%</td><td class="num-cell">59,7%</td><td class="num-cell neg">98,6%</td><td class="num-cell">43,3%</td></tr>
+    <tr><td>Крипто</td><td class="num-cell">25,7%</td><td class="num-cell">—</td><td class="num-cell">—</td><td class="num-cell">—</td></tr>
+    <tr><td>Валюта (USD-хедж)</td><td class="num-cell">24,3%</td><td class="num-cell">—</td><td class="num-cell">—</td><td class="num-cell">—</td></tr>
+    <tr><td>Облигации</td><td class="num-cell">7,3%</td><td class="num-cell">24,7%</td><td class="num-cell">—</td><td class="num-cell">—</td></tr>
+    <tr><td>Золото</td><td class="num-cell">3,9%</td><td class="num-cell">3,7%</td><td class="num-cell">—</td><td class="num-cell">56,0%</td></tr>
+    <tr><td>Бизнес</td><td class="num-cell">2,1%</td><td class="num-cell">—</td><td class="num-cell">—</td><td class="num-cell">—</td></tr>
+    <tr><td>Денежный рынок/кэш</td><td class="num-cell">0,7%</td><td class="num-cell">12,0%</td><td class="num-cell">1,4%</td><td class="num-cell">0,7%</td></tr>
+  </table>
+
+  <h3>Целевые коридоры</h3>
+  <table>
+    <caption>Коридор по классам активов, по целям</caption>
+    <tr><th>Класс</th><th>Цель #1 (21-26 лет, бессрочно)</th><th>Цель #2 (16-26 лет, изъятие)</th><th>Цель #3 (~5 лет, консервативно)</th><th>Цель #4 (защитный)</th></tr>
+    <tr><td>Акции РФ</td><td class="num-cell">45-55%</td><td class="num-cell">35-45%</td><td class="num-cell">15-25%</td><td class="num-cell">0%</td></tr>
+    <tr><td>Облигации</td><td class="num-cell">10-20%</td><td class="num-cell">30-40%</td><td class="num-cell">50-65%</td><td class="num-cell">0-15%</td></tr>
+    <tr><td>Золото</td><td class="num-cell">10-15%</td><td class="num-cell">5-10%</td><td class="num-cell">5-10%</td><td class="num-cell">40-60%</td></tr>
+    <tr><td>Валюта</td><td class="num-cell">15-20%</td><td class="num-cell">—</td><td class="num-cell">—</td><td class="num-cell">—</td></tr>
+    <tr><td>Крипто</td><td class="num-cell">5-10%</td><td class="num-cell">0%</td><td class="num-cell">0%</td><td class="num-cell">0%</td></tr>
+    <tr><td>Денежный рынок/кэш</td><td class="num-cell">0-5%</td><td class="num-cell">10-20%</td><td class="num-cell">10-20%</td><td class="num-cell">30-50%</td></tr>
+  </table>
+
+  <div class="callout warn">
+    <h4>Главный разрыв — Цель #3</h4>
+    <p>98,6% капитала в отдельных акциях против целевых 15-25% — самый сильный разрыв
+    среди всех 4 целей, прямое продолжение уже отмеченного структурного рассогласования
+    (−31,9% просадка при коротком горизонте цели). Приоритетный кандидат на
+    ребалансировку у Тактического инвестора.</p>
+  </div>
+
+  <h3>Динамическое соотношение акций/облигаций по ключевой ставке ЦБ (Цели #1, #2)</h3>
+  <p>Для Контрольного портфеля Цели #2 уже действует исследованное и подтверждённое
+  бэктестом (13 лет / 7 стартовых дат) правило — не статичная точка, а линейная
+  зависимость от ключевой ставки ЦБ РФ (<code>radar/TZ_Model_Portfolio.md</code>, §10в):</p>
+  <p style="text-align:center;font-family:ui-monospace,monospace;background:var(--chip);
+    padding:10px;border-radius:6px">
+    вес_акций(ставка)% = 15 + (max_ставка − ставка)/(max_ставка − min_ставка) × 70
+  </p>
+  <p class="small">15% акций на историческом максимуме ставки, 85% на минимуме. Принцип
+  распространён на Цель #1 по согласованию с пользователем — точные параметры и
+  исполнение остаются за Тактическим инвестором (бэктест калибровался на структуре
+  Цели #2, перенос параметров на Цель #1 отдельно не проверен).</p>
+</section>
+
+<section id="s6">
+  <h2><span class="num">6.</span> Страхование</h2>
+  <table>
+    <caption>Действующие полисы</caption>
+    <tr><th>Полис</th><th>Срок</th><th>Сумма покрытия</th><th>Премия</th></tr>
+    <tr><td>Квартира (IFL-0003425317)</td><td>14.03.2026–13.03.2027</td><td class="num-cell">3 500 000 ₽ + 750 000 ₽ отв.</td><td class="num-cell">9 953,50 ₽/год</td></tr>
+    <tr><td>КАСКО (9490242046)</td><td>26.04.2026–25.04.2027</td><td class="num-cell">1 150 000 ₽</td><td class="num-cell">40 000 ₽/год</td></tr>
+  </table>
+  <p class="small">Оба полиса не истекают в ближайшем триместре. КАСКО — лимит пробега
+  7 000 км/год, стоит сверить с реальным пробегом.</p>
+
+  <div class="callout">
+    <h4>КАСКО/ДМС — трейд-оффы (открытый вопрос)</h4>
+    <p>Квартира — держать безусловно (дёшево относительно риска). КАСКО — рано отменять,
+    Страховой счёт и Резерв ещё не доросли до запаса прочности под риск авто (≈1,15 млн ₽).
+    ДМС — добавлять осторожнее, не вместо ОМС; не чисто финансовый расчёт.</p>
+  </div>
+
+  <div class="open-q">Анализ ДМС/чек-апа/страхования от критических заболеваний
+  перенесён в бэклог сферы «Спорт и здоровье» (<code>3. Спорт и здоровье/советник.md</code>) —
+  это вопрос здоровья, не инвестиций. Предварительно выяснено: комплексный чек-ап —
+  частый, но не универсальный компонент программ ДМС; страхование от критических
+  заболеваний — отдельный, более дешёвый продукт для редких тяжёлых диагнозов.</div>
+</section>
+
+<section id="s7">
+  <h2><span class="num">7.</span> Ритм пересмотра</h2>
+  <div class="callout good">
+    <h4>Следующая регулярная встреча</h4>
+    <p><strong>Январь 2027, не позже 01.02.2027.</strong> Ориентир — середина января,
+    сразу после расчётного перехода Фаза 1 → Фаза 2. Системное напоминание поставлено.</p>
+  </div>
+  <p>Что сверить на встрече:</p>
+  <ul class="backlog-list">
+    <li>Факт vs прогноз по всем 6 целям (раздел 4.2 выше) — особенно устойчивость
+    счетов «Приоритет» и «Бюджет».</li>
+    <li>Фактическая дата перехода Фаза 1 → Фаза 2 и фактический сплит 450 000 ₽.</li>
+    <li>Открытие 2 новых ИИС-3 — должно быть закрыто к этой встрече.</li>
+    <li>Открытые пункты разделов 4-6 (список ниже).</li>
+  </ul>
+</section>
+
+<section id="open">
+  <h2>Все открытые вопросы — сводка</h2>
+  <ul class="backlog-list">
+    <li><strong>Источник доплаты для Цели #3</strong> (счёт «Приоритет») — плановый
+    ориентир, не жёсткое правило; структурный дефицит ≈−2 610 ₽/мес, счёт уходит в ноль
+    за пределами 2 лет без изменений.</li>
+    <li><strong>Правило «переизбытка 200 000 ₽»</strong> — не зафиксировано, относится ли
+    оно к Семье/Детскому/Бюджету (Бюджет пересекает порог уже на 11-м месяце).</li>
+    <li><strong>Разделение 450 000 ₽</strong> на конец Фазы 1 — правило найдено и
+    применено (100к Резерв / 350к Страхование), закрыто.</li>
+    <li><strong>ДМС/чек-ап/страхование от критических заболеваний</strong> — перенесено
+    в бэклог сферы «Спорт и здоровье».</li>
+    <li><strong>ДМС vs отказ от части страховок</strong> (раздел 6.3) — решение не принято.</li>
+    <li><strong>Единая ставка доходности</strong> вместо диапазонов 7%/9% и 4%/5% —
+    не выбрана, диапазон сохраняется намеренно.</li>
+    <li><strong>Параметры §10в для Цели #1</strong> (min/max ставки, границы 15-85%) —
+    за Тактическим инвестором, отдельный бэктест не проводился.</li>
+    <li><strong>Открытие 2 новых ИИС-3</strong> — бэклог до конца 2026 года.</li>
+    <li><strong>Ребалансировка Цели #3</strong> (98,6% в акциях) — зона Тактического
+    инвестора, поэтапный план не расписан.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>Полный пошаговый расчёт, методология и все промежуточные версии — в исходном файле
+  <code>финансовый-план-2026.md</code> этой же папки. История работы агента — в
+  <code>../Агенты/макро-стратег.md</code>.</p>
+  <p class="agent-sig">Макро-стратег (Антон Беляков) · 07.10.2026</p>
+</footer>
+
+</div>
+</body>
+</html>
