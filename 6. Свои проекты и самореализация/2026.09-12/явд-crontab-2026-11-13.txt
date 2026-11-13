@@ -1,0 +1,142 @@
+Снимок crontab сервера yavdele — 13.11.2026
+Команда: crontab -l -u root; crontab -l -u www-root; /etc/cron.d/*
+Получено от пользователя, сохранено как есть (построчные переносы терминала
+при вставке выправлены там, где явно разорвано слово/путь посреди строки;
+содержание не менялось). Вывод мог быть обрезан в конце терминалом/вставкой —
+не гарантирую полноту /etc/cron.d/* после "roundcube-core".
+
+=== crontab root ===
+MAILTO=""
+PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+## ISPsystem acme.sh certs update task
+0 3 * * *       /usr/local/mgr5/sbin/cron-core sbin/mgrctl -m core acmesh.certs.update >/dev/null 2>&1
+## ISPsystem delete expire logs task
+0 3 * * *       /usr/local/mgr5/sbin/cron-core sbin/mgrctl -m core deletearchivelogs >/dev/null 2>&1
+## ISPsystem usagestat task
+26 3 * * *      /usr/local/mgr5/sbin/cron-core sbin/usagestat >/dev/null 2>&1
+## ISPsystem problems autosolve task (/usr/local/mgr5)
+*/5 * * * *     /usr/local/mgr5/sbin/cron-core sbin/mgrctl -m core problems.autosolve >/dev/null 2>&1
+## ISPsystem update package cache task
+29 14 * * *     /usr/local/mgr5/sbin/cron-ispmgr sbin/pkgupdate.sh >/dev/null 2>&1
+## ISPmanager stat handler (ispmgr)
+47 2 * * *      /usr/local/mgr5/sbin/cron-ispmgr sbin/mgrctl -m ispmgr ispstat >/dev/null 2>&1
+## ISPmanager periodic tasks handler (ispmgr)
+* * * * *       /usr/local/mgr5/sbin/cron-ispmgr sbin/mgrctl -m ispmgr periodic >/dev/null 2>&1
+## Check DS records from the domain registrar
+14 4 * * 0      /usr/local/mgr5/sbin/cron-ispmgr sbin/mgrctl -m ispmgr checkdsrecords >/dev/null 2>&1
+## ISPmanager letsencrypt cert update check
+7 3 * * *       /usr/local/mgr5/sbin/cron-ispmgr sbin/mgrctl -m ispmgr letsencrypt.check.update >/dev/null 2>&1
+## ISPsystem problems autosolve task (/usr/local/mgr5)
+*/5 * * * *     /usr/local/mgr5/sbin/cron-ispmgr sbin/mgrctl -m ispmgr problems.autosolve >/dev/null 2>&1
+## ISPmanager metric task
+*/5 * * * *     /usr/local/mgr5/sbin/cron-ispmgr sbin/metric >/dev/null 2>&1
+## ISPsystem upgrade task
+1 9 * * *       /usr/local/mgr5/sbin/cron-core sbin/pkgupgrade.sh coremanager >/dev/null 2>&1
+### * * * * *   /usr/bin/php7.4 -r "mail('paladin_cool@inbox.ru', 'Some subject', 'Some body');"
+## Автоотправка напоминаний на почту
+### * * * * *   /opt/php83/bin/php /var/www/www-root/data/www/yavdele.site/yii send/mail
+## СМ: Автобэкап
+0 * * * *       /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/extensions/autobackup/task/autobackup_cron.php
+## СМ: Письма напоминания о неоплаченных заказах
+*/10 * * * *    /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/task/order_cron.php
+## СМ: Сработка условий
+*/20 * * * *    /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/task/cond_cron.php
+## СМ: Работа рассрочки
+*/15 * * * *    /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/task/installment_cron.php
+## СМ: Автопроверка заданий (Тренинги 2.0)
+*/10 * * * *    /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/task/training_cron.php
+## СМ: Отправка писем рассылки
+* * * * *       /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/task/email_cron.php
+## СМ: Проверка истечения платного доступа
+*/10 * * * *    /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/task/member_cron.php
+## СМ: Отправка уведомлений для форума
+0 0 * * *       /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/task/forum_cron.php
+## СМ: Системные события
+0 0 * * *       /opt/php83/bin/php /var/www/www-root/data/www/gotodo.ru/task/system_cron.php
+## Ispmanager backup task
+0 3 * * 0,1-6   /usr/local/mgr5/sbin/cron-ispmgr sbin/backup2 --mode schedule >/dev/null 2>&1
+## Ispmanager task which collect system statistics
+*/5 * * * *     /usr/local/mgr5/sbin/cron-ispmgr sbin/mgrctl -m ispmgr sysinfostat >/dev/null 2>&1
+## Ispmanager get actual version handler
+59 13 * * *     /usr/local/mgr5/sbin/cron-ispmgr sbin/mgrctl -m ispmgr version.actual >/dev/null 2>&1
+## Ispmanager get actual version handler
+53 8 * * *      /usr/local/mgr5/sbin/cron-core sbin/mgrctl -m core version.actual >/dev/null 2>&1
+## Сбор статистики по крипте
+0 * * * * /usr/bin/curl -o /dev/null https://stascher.ru/finManager/index.php
+## Отправка писем через http
+### * * * * *   /usr/bin/curl -o /dev/null https://yavdele.site/mail
+## Отправка писем
+### * * * * *   /usr/bin/curl -o /dev/null https://yavdele.com/mail
+## ispmanager WireGuard statistic task
+*/5 * * * *     /usr/local/mgr5/sbin/cron-ispmgr sbin/mgrctl -m ispmgr wireguard.stat >/dev/null 2>&1
+## Сбор статистики по фонде
+5 * * * *       /usr/bin/curl -o /dev/null https://stascher.ru/finMoex/index.php
+* * * * * /root/memwatch.sh
+## ispmanager services monitoring task (srvmon)
+*/15 * * * *    /usr/local/mgr5/sbin/cron-ispmgr addon/srvmon >/dev/null 2>&1
+
+=== crontab www-root ===
+MAILTO="paladin_cool@inbox.ru"
+PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+## Отправка писем
+### * * * * *   /opt/php83/bin/php /www/yavdele.site/yii send/mail
+## Сбор статистики по крипте
+* * * * * /opt/php83/bin/php /var/www/www-root/data/www/stascher.ru/finManager/test.php
+
+=== /etc/cron.d/* ===
+--- /etc/cron.d/atop ---
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+# daily restart of atop at midnight
+0 0 * * * root [ -d "/run/systemd/system" ] || /usr/share/atop/atop.daily&
+0 0 * * * root [ -d "/run/systemd/system" ] && systemctl restart atop
+--- /etc/cron.d/awstats ---
+MAILTO=root
+*/10 * * * * www-data [ -x /usr/share/awstats/tools/update.sh ] && /usr/share/awstats/tools/update.sh
+# Generate static reports:
+10 03 * * * www-data [ -x /usr/share/awstats/tools/buildstatic.sh ] && /usr/share/awstats/tools/buildstatic.sh
+--- /etc/cron.d/bybit-bot ---
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+* * * * * www-root /opt/php83/bin/php /var/www/www-root/data/www/stascher.ru/bybit-bot/bin/cron_minute.php >> /var/www/www-root/data/www/stascher.ru/bybit-bot/logs/cron_minute.out 2>&1
+1 * * * * www-root /opt/php83/bin/php /var/www/www-root/data/www/stascher.ru/bybit-bot/bin/cron_hourly.php >> /var/www/www-root/data/www/stascher.ru/bybit-bot/logs/cron_hourly.out 2>&1
+0 0 * * * www-root /opt/php83/bin/php /var/www/www-root/data/www/stascher.ru/bybit-bot/bin/cron_daily.php >> /var/www/www-root/data/www/stascher.ru/bybit-bot/logs/cron_daily.out 2>&1
+--- /etc/cron.d/bybit-bot.disabled ---
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+* * * * * www-root /usr/bin/php7.4 /var/www/www-root/data/www/stascher.ru/bybit-bot/bin/cron_minute.php >> /var/www/www-root/data/www/stascher.ru/bybit-bot/logs/cron_minute.out 2>&1
+1 * * * * www-root /usr/bin/php7.4 /var/www/www-root/data/www/stascher.ru/bybit-bot/bin/cron_hourly.php >> /var/www/www-root/data/www/stascher.ru/bybit-bot/logs/cron_hourly.out 2>&1
+0 0 * * * www-root /usr/bin/php7.4 /var/www/www-root/data/www/stascher.ru/bybit-bot/bin/cron_daily.php >> /var/www/www-root/data/www/stascher.ru/bybit-bot/logs/cron_daily.out 2>&1
+--- /etc/cron.d/e2scrub_all ---
+30 3 * * 0 root test -e /run/systemd/system || SERVICE_MODE=1 /usr/lib/x86_64-linux-gnu/e2fsprogs/e2scrub_all_cron
+10 3 * * * root test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r
+--- /etc/cron.d/php ---
+# /etc/cron.d/php@PHP_VERSION@: crontab fragment for PHP
+#  This purges session files in session.save_path older than X,
+#  where X is defined in seconds as the largest value of
+#  session.gc_maxlifetime from all your SAPI php.ini files
+#  or 24 minutes if not defined.  The script triggers only
+#  when session.save_handler=files.
+#
+#  WARNING: The scripts tries hard to honour all relevant
+#  session PHP options, but if you do something unusual
+#  you have to disable this script and take care of your
+#  sessions yourself.
+# Look for and purge old sessions every 30 minutes
+09,39 *     * * *     root   [ -x /usr/lib/php/sessionclean ] && if [ ! -d /run/systemd/system ]; then /usr/lib/php/sessionclean; fi
+--- /etc/cron.d/revisium ---
+*   *   * * *     root    /opt/php71/bin/php -n -c /usr/local/mgr5/addon/revisium_antivirus/php.ini /usr/local/mgr5/addon/revisium_antivirus/services/queue.php        >> /usr/local/mgr5/var/raisp_data/log/raisp_queue.log       2>&1
+0   *   * * *     root    /opt/php71/bin/php -n -c /usr/local/mgr5/addon/revisium_antivirus/php.ini /usr/local/mgr5/addon/revisium_antivirus/services/scheduler.php    >> /usr/local/mgr5/var/raisp_data/log/raisp_scheduler.log   2>&1
+*/5 *   * * *     root    /opt/php71/bin/php -n -c /usr/local/mgr5/addon/revisium_antivirus/php.ini /usr/local/mgr5/addon/revisium_antivirus/services/email.php        >> /usr/local/mgr5/var/raisp_data/log/email.log             2>&1
+4   6   * * *     root    /opt/php71/bin/php -n -c /usr/local/mgr5/addon/revisium_antivirus/php.ini /usr/local/mgr5/addon/revisium_antivirus/services/cleaner.php      >> /usr/local/mgr5/var/raisp_data/log/cleaner.log           2>&1
+55  23  * * *     root    /opt/php71/bin/php -n -c /usr/local/mgr5/addon/revisium_antivirus/php.ini /usr/local/mgr5/addon/revisium_antivirus/services/update.php       >> /usr/local/mgr5/var/raisp_data/log/update.log            2>&1
+57  23  * * *     root    /opt/php71/bin/php -n -c /usr/local/mgr5/addon/revisium_antivirus/php.ini /usr/local/mgr5/addon/revisium_antivirus/services/tools_update.php >> /usr/local/mgr5/var/raisp_data/log/tools_update.log      2>&1
+30  22  * * 0     root    /opt/php71/bin/php -n -c /usr/local/mgr5/addon/revisium_antivirus/php.ini /usr/local/mgr5/addon/revisium_antivirus/services/send_stats.php   >> /usr/local/mgr5/var/raisp_data/log/send_stats.log        2>&1
+--- /etc/cron.d/roundcube-core ---
+# Note: This is a no-op when PID1 is systemd
+#
+# Database cleaning: remove old records that were marked as deleted
+0 5 * * * www-data test -d /run/systemd/system || /usr/share/roundcube/bin/cleandb.sh >/dev/null
+# Purge expired sessions, caches and tempfiles
+* 5 * * * www-data test -d /run/systemd/system || /usr/share/roundcube/bin/gc.sh
